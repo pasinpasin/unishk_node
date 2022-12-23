@@ -1,0 +1,131 @@
+doctype html
+html
+  head
+    block head
+      meta(charset='UTF-8')
+      meta(name='viewport' content='width=device-width, initial-scale=1.0')
+      
+      
+      title Natours 
+  body
+    - var i = 1
+    - var rreshti = 0
+    span= fak
+    table(width="100%")
+      tr
+        td(colspan="1")
+          br
+          span= "Departamenti" +" "+ dep
+        td(colspan="7" align="left")
+          br
+          span= viti 
+        td(colspan="7" align="right")
+          br
+          span= "Totali i departamentit:"
+    br
+    table(width="100%")
+      tr(class="tblrow" style="text-align:center;")
+        td(width="3%" bgcolor="#ccd4e6")= "Nr"
+        td(width="15%"  bgcolor="#ccd4e6")= "Emer mbiemer"
+        td(width="10%" bgcolor="#ccd4e6")= "Titulli"
+          br 
+        td(width="7%" class="rotate"  bgcolor="#ccd4e6")
+          img(src= "https://smak.unishk.edu.al/unireports/normamesimore.PNG")
+        td(width="7%"  bgcolor="#ccd4e6" class="rotate")
+          img(src= "https://smak.unishk.edu.al/unireports/oresuplementare.PNG")
+        td(width="18%" bgcolor="#ccd4e6")= "Lenda"
+        td(width="10%" bgcolor="#ccd4e6")= "Dega"
+        td(width="10%" bgcolor="#ccd4e6")= "Niveli"
+        td(class="rotate" bgcolor="#ccd4e6")
+          img(src= "https://smak.unishk.edu.al/unireports/Leksione.PNG")
+        td(class="rotate" bgcolor="#ccd4e6")
+          img(src= "https://smak.unishk.edu.al/unireports/Seminare.PNG")
+        td(class="rotate" bgcolor="#ccd4e6")
+          img(src= "https://smak.unishk.edu.al/unireports/NrGrSeminari.PNG")
+        td(class="rotate" bgcolor="#ccd4e6")
+           img(src= "https://smak.unishk.edu.al/unireports/Lab.PNG")
+        td(class="rotate" bgcolor="#ccd4e6")
+          img(src= "https://smak.unishk.edu.al/unireports/NrGrLab.PNG")
+        td(class="rotate" bgcolor="#ccd4e6")
+          img(src= "https://smak.unishk.edu.al/unireports/Praktika.PNG")
+        td(bgcolor="#ccd4e6")= "Shuma"
+      each ngarkese in ngarkesa
+        each lende in ngarkese.alookup.lendet
+          - rreshti++
+          if( rreshti == 1)
+            tr(style="vertical-align:top; text-align:center; page-break-inside:avoid")
+              td(width="3%" bgcolor="#aab7d5"  style="vertical-align:top; text-align:center;")= i
+              td(width="15%" bgcolor="#aab7d5"  style="vertical-align:top; text-align:center;")= ngarkese.emerpedagogu + " "+ ngarkese.mbiemerpedagogu 
+              td(width="10%" bgcolor="#ccd4e6")= ngarkese.titullpedagogu
+              td(width="7%" bgcolor="#eef1f7")= ngarkese.norma
+              if(ngarkese.totneAuditor - ngarkese.norma > 200 )
+                td(width="7%" bgcolor="#cc6666")
+                  span= ngarkese.totneAuditor - ngarkese.norma
+              if(ngarkese.totneAuditor - ngarkese.norma <= 200)
+                td(width="7%" bgcolor="#eef1f7")
+                  span= ngarkese.totneAuditor - ngarkese.norma
+              td(width="18%" bgcolor="#eef1f7" align="left")= lende.emertimi
+              td(width="10%" bgcolor="#eef1f7" align="left")= lende.dega 
+              td(width="10%" bgcolor="#eef1f7")= lende.niveli 
+              td(bgcolor="#eef1f7")= lende.leksione 
+              td(bgcolor="#eef1f7")= lende.seminare
+              td(bgcolor="#eef1f7")= lende.grupseminare 
+              td(bgcolor="#eef1f7")= lende.laboratore 
+              td(bgcolor="#eef1f7")= lende.gruplaboratore 
+              td(bgcolor="#eef1f7")= lende.praktika 
+              td(bgcolor="#eef1f7")= lende.shuma
+          else if( rreshti == 2) 
+            tr(style="vertical-align:top; text-align:center; page-break-inside:avoid")
+              
+                td(colspan="5" rowspan= ngarkese.alookup.lendet.length)
+                td(width="18%" bgcolor="#eef1f7" align="left")= lende.emertimi
+                td(width="10%" bgcolor="#eef1f7" align="left")= lende.dega 
+                td(width="10%" bgcolor="#eef1f7")= lende.niveli 
+                td(bgcolor="#eef1f7")= lende.leksione 
+                td(bgcolor="#eef1f7")= lende.seminare
+                td(bgcolor="#eef1f7")= lende.grupseminare 
+                td(bgcolor="#eef1f7")= lende.laboratore 
+                td(bgcolor="#eef1f7")= lende.gruplaboratore 
+                td(bgcolor="#eef1f7")= lende.praktika 
+                td(bgcolor="#eef1f7")= lende.shuma
+          else 
+            tr(style="vertical-align:top; text-align:center; page-break-inside:avoid")
+                td(width="18%" bgcolor="#eef1f7" align="left")= lende.emertimi
+                td(width="10%" bgcolor="#eef1f7" align="left")= lende.dega 
+                td(width="10%" bgcolor="#eef1f7")= lende.niveli 
+                td(bgcolor="#eef1f7")= lende.leksione 
+                td(bgcolor="#eef1f7")= lende.seminare
+                td(bgcolor="#eef1f7")= lende.grupseminare 
+                td(bgcolor="#eef1f7")= lende.laboratore 
+                td(bgcolor="#eef1f7")= lende.gruplaboratore 
+                td(bgcolor="#eef1f7")= lende.praktika 
+                td(bgcolor="#eef1f7")= lende.shuma
+        tr 
+          td(colspan="15"  align="right")
+            
+            span= "Total:" + " " + ngarkese.planifikimi
+            - console.log(ngarkese.totneAuditor)
+            br
+        - i++
+        - rreshti=0
+
+
+
+
+
+
+
+
+
+
+
+              
+
+
+          
+            
+            
+                                
+              
+                        
+

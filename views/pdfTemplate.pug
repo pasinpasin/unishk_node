@@ -1,0 +1,226 @@
+doctype html
+html
+  head
+    block head
+      meta(charset='UTF-8')
+      meta(name='viewport' content='width=device-width, initial-scale=1.0')
+      
+      link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:300,300i,700')
+      link(rel='stylesheet' href='https://bootswatch.com/3/united/bootstrap.min.css')
+      title Natours 
+  body
+    - var i = 0
+    - var ugjet = false
+    - var toti = 0
+    - var perqindje = 0
+    - var img2 = "../public/img/rep.jpg"
+    img(src=img2 align="center")
+    table(width="100%")
+      tr
+        td
+          span= obj['1'][0].fakulteti.emertimi
+        td(colspan="2" align="center")
+          b= "PROGRAMI"
+        td(colspan="2" align="center")= "Viti akademik" +" "+ obj['1'][0].planetmesimore.vitiakademik
+      tr
+        td(width="30%")
+        td(colspan="2")
+        td(width="30%")
+      tr
+        td(width="30%")= obj['1'][0].departamenti.emertimi
+        td(colspan="2" align="center")
+          b= obj['1'][0].programi.emertimi 
+        td(align="center" width="30%")
+          span= "Cikli" +" "+ obj['1'][0].planetmesimore.cikli
+
+    br
+    table(width="100%")
+      tr(bgcolor="#ccd4e6")
+        td(width="40%")
+          span 
+          b= "Tipi i veprimtarisë dhe simboli përcaktues"
+        td(width="30%")
+          b= "Fusha disiplinore apo veprimtari të tjera formuese"
+        td( width="10%")
+         b= "Kredite"
+        td(width="10%")
+          b= "Totali krediteve"
+        td(width="10%")
+          b= "%"
+        each val, index  in obj2
+          if index != "m"
+            tr(bgcolor="#ccd4e6")
+              tr(bgcolor="#ccd4e6")
+                td(width="40%" rowspan= `${val.length}`)= index
+                td(width="30%")= val[0].emertimilendes
+                td(width="10%" )= val[0].kredite
+                - toti = toti + val[0].kredite
+                - console.log(toti)
+                td(width="10%" rowspan= `${val.length}`)= val.totKrediteVeprimtari
+                td(width="10%" rowspan= `${val.length}`)= (100 * val.totKrediteVeprimtari/sum).toFixed(2)+ " %"
+                - perqindje = perqindje + 100 * val.totKrediteVeprimtari/sum
+              each lende, lendeindex in val
+                if lendeindex > 0
+                  tr(bgcolor="#ccd4e6")
+                    td(width="30%")= lende.emertimilendes
+                    td(width="10%" )=lende.kredite
+                    - toti = toti + lende.kredite
+      tr(bgcolor="#eef1f7") 
+        th(colspan="3" align="left")= "Totali"
+        th(width="10%")= toti
+        th(width="10%")= perqindje.toFixed(2)
+
+
+             
+
+
+
+
+
+
+
+       
+          
+          
+
+
+    each viti in obj 
+      - ugjet = false
+      table(width="100%")
+        tr
+          td(colspan="5" align="center")
+              if i <= Object.keys(obj).length
+                b= "viti" +" "+ Object.keys(obj)[i]
+                - i++
+                
+                
+        tr
+          td(align="left" colspan="5")
+           span
+            b= "numri total i krediteve"
+             if(viti.totKrediteVit != 60)
+               span(style="color:#bf4040")
+             else
+               span(style="color:#0080ff")
+               b= viti.totKrediteVit
+        tr
+         td(width="25%")
+         td(align="center" width="24%")
+           b= "semestri I"
+         td(width="2%")
+         td(align="center" width="24%")
+           b= "Semestri II"
+        tr
+          td(width="25%")
+          td(align="center" width="24%")= "Numri i javeve:"
+           b= 15
+          td(width="2%")
+          td(align="center"  width="24%")= "Numri i javeve:"
+            b= 14
+            br
+          td(width="25%")
+        tr
+          td(width="25%")
+          td(align="center"  width="24%")
+            span= "ngarkesa Mesimore"
+            span(style="color:#bf4040")
+              b= viti.NgarkesaJavoreSem1
+              br
+          td(width="2%")
+          td(align="center"  width="24%")
+            span= "Ngarkesa mesimore: "
+            span(style="color:#bf4040")
+              b= viti.NgarkesaJavoreSem2
+              br
+          td(width="25%")
+        br  
+      table.table.table-striped(width="100%")   
+        tr
+          th(rowspan="2" bgcolor="#ccd4e6")= "Nr"
+          th(rowspan="2" bgcolor="#ccd4e6")= "Emertimi Lendes"
+          th(rowspan="2" bgcolor="#ccd4e6")= "Titullari Lendes"
+          th(rowspan="2" bgcolor="#ccd4e6")= "Tipi Veprimtarise"
+          th(rowspan="2" bgcolor="#ccd4e6")= "Kredite"
+          th(colspan="5" bgcolor="#ccd4e6")= "Semestri I"
+          th(colspan="5" bgcolor="#ccd4e6")= "Semestri II"
+          th(colspan="4" bgcolor="#ccd4e6")= "Totali"
+          th(rowspan="2" width="4%" bgcolor="#ccd4e6")= "Ore jashte auditorit" 
+          th(colspan="2" bgcolor="#ccd4e6")= "Semestri"
+        tr
+          th(bgcolor="#ccd4e6"  width="4%")= "Nr jave"
+          th(bgcolor="#ccd4e6")= "Leks"
+          th(bgcolor="#ccd4e6")= "Sem"
+          th(bgcolor="#ccd4e6")= "Lab"
+          th(bgcolor="#ccd4e6" width="3%")= "Prakt"
+          th(bgcolor="#ccd4e6" width="4%")= "Nr Jave"
+          th(bgcolor="#ccd4e6")= "Leks"
+          th(bgcolor="#ccd4e6")= "Sem"
+          th(bgcolor="#ccd4e6")= "Lab"
+          th(bgcolor="#ccd4e6" width="3%")= "Prakt"
+          th(bgcolor="#ccd4e6")= "Leks"
+          th(bgcolor="#ccd4e6")= "Sem"
+          th(bgcolor="#ccd4e6")= "Lab"
+          th(bgcolor="#ccd4e6")= "Prakt"
+          th(bgcolor="#ccd4e6")= "I"
+          th(bgcolor="#ccd4e6")= "II"
+          each vitpermbajtja in viti
+            if vitpermbajtja.lendemezgjedhje.length
+              - ugjet=true
+            tr
+              td(bgcolor="#eef1f7")= "1"
+              td(bgcolor="#eef1f7")= vitpermbajtja.emertimilendes
+              td(bgcolor="#eef1f7")= vitpermbajtja.titullari
+              td(bgcolor="#eef1f7")= vitpermbajtja.tipiveprimtarise
+              td(bgcolor="#eef1f7")= vitpermbajtja.kredite
+              td(bgcolor="#eef1f7")= vitpermbajtja.semestri[0].numrijaveve
+              td(bgcolor="#eef1f7")= vitpermbajtja.semestri[0].leksione
+              td(bgcolor="#eef1f7")= vitpermbajtja.semestri[0].seminare
+              td(bgcolor="#eef1f7")= vitpermbajtja.semestri[0].laboratore
+              td(bgcolor="#eef1f7")= vitpermbajtja.semestri[0].praktika
+              td(bgcolor="#eef1f7")= vitpermbajtja.semestri[1].numrijaveve
+              td(bgcolor="#eef1f7")= vitpermbajtja.semestri[1].leksione
+              td(bgcolor="#eef1f7")= vitpermbajtja.semestri[1].seminare
+              td(bgcolor="#eef1f7")= vitpermbajtja.semestri[1].laboratore
+              td(bgcolor="#eef1f7")= vitpermbajtja.semestri[1].praktika
+              td(bgcolor="#eef1f7")= vitpermbajtja.totLeksione
+              td(bgcolor="#eef1f7")= vitpermbajtja.totSeminare
+              td(bgcolor="#eef1f7")= vitpermbajtja.totLaboratore
+              td(bgcolor="#eef1f7")= vitpermbajtja.totPraktika
+              td(bgcolor="#eef1f7")
+              td(bgcolor="#eef1f7")= vitpermbajtja.semestri[0].provimapofirme
+              td(bgcolor="#eef1f7")= vitpermbajtja.semestri[1].provimapofirme
+            tr
+                td
+                td= "totali"
+                td
+                td
+                td= viti.totKrediteVit
+                td
+                td= viti.totLeksioneSem1 
+
+        if ugjet 
+          tr
+            td(colspan="21" align="Center")
+              br
+              table(width="50%" style="page-break-inside:avoid")
+                tr
+                  th(bgcolor="#ccd4e6")= "Kategoria"
+                  th(bgcolor="#ccd4e6")= "Emertimi i lendes"
+                  th(bgcolor="#ccd4e6")= "Tipi i veprimtarise" 
+                each vitpermbajtja in viti
+                  if vitpermbajtja.lendemezgjedhje.length
+                    each lende in vitpermbajtja.lendemezgjedhje 
+                      tr 
+                        td(bgcolor="#eef1f7")= vitpermbajtja.emertimilendes
+                        td(bgcolor="#eef1f7")= lende.emertimi
+                        td(bgcolor="#eef1f7")= vitpermbajtja.tipiveprimtarise
+
+
+
+          
+            
+            
+                                
+              
+                        
+

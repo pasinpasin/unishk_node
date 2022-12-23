@@ -1,0 +1,760 @@
+[{
+  "viti": "1",
+  "emertimilendes": "Psikologji ",
+  "titullari": "Ledjana Xhakollari",
+  "tipiveprimtarise": "A",
+  "kredite": 7,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 3,
+      "seminare": 2,
+      "laboratore": 0,
+      "praktika": 0
+     
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+    
+    }
+  ],
+  "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "1",
+  "emertimilendes": "Pedagogji 1",
+  "titullari": "Gezim Dibra",
+  "tipiveprimtarise": "B",
+  "kredite": 7,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 3,
+      "seminare": 2,
+      "laboratore": 0,
+      "praktika": 0
+    
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+     
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "1",
+  "emertimilendes": "Gjeometri analitike ",
+  "titullari": "Sidite Duraj",
+  "tipiveprimtarise": "B",
+  "kredite": 5,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 2,
+      "seminare": 2,
+      "laboratore": 0,
+      "praktika": 0
+    
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+     
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "1",
+  "emertimilendes": "Gjuhe angleze per qellime specifike ",
+  "titullari": "",
+  "tipiveprimtarise": "D",
+  "kredite": 4,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 1,
+      "seminare": 2,
+      "laboratore": 0,
+      "praktika": 0
+      
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+     
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "1",
+  "emertimilendes": "Didaktike e informatikes dhe matematikes ",
+  "titullari": "Besara Kdija",
+  "tipiveprimtarise": "C",
+  "kredite": 8,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 2,
+      "seminare": 1,
+      "laboratore": 0,
+      "praktika": 0
+     
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 2,
+      "seminare": 1,
+      "laboratore": 0,
+      "praktika": 0
+     
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "1",
+  "emertimilendes": "Didaktike e informatikes ",
+  "titullari": "",
+  "tipiveprimtarise": "m",
+  "kredite": 4,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 2,
+      "seminare": 1,
+      "laboratore": 0,
+      "praktika": 0
+      
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+    
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "1",
+  "emertimilendes": "Didaktike e matematikes ",
+  "titullari": "",
+  "tipiveprimtarise": "m",
+  "kredite": 4,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+      
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 2,
+      "seminare": 1,
+      "laboratore": 0,
+      "praktika": 0
+     
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "1",
+  "emertimilendes": "Plotesime ne matematike(kombinatorike)",
+  "titullari": "Erjola Sila",
+  "tipiveprimtarise": "B",
+  "kredite": 6,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+     
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 2,
+      "seminare": 3,
+      "laboratore": 0,
+      "praktika": 0
+     
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "1",
+  "emertimilendes": "Psikololgji Edukimi",
+  "titullari": "Fatmir Vadahi",
+  "tipiveprimtarise": "B",
+  "kredite": 9,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+     
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 4,
+      "seminare": 2,
+      "laboratore": 0,
+      "praktika": 0
+     
+    }
+  ],
+  "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "1",
+  "emertimilendes": "Pedagogji 2",
+  "titullari": "Eranda Bilali",
+  "tipiveprimtarise": "B",
+  "kredite": 9,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+     
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 4,
+      "seminare": 2,
+      "laboratore": 0,
+      "praktika": 0
+     
+    }
+  ],
+  "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "1",
+  "emertimilendes": "Teknikat e zgjidhjes se problemeve matematikore",
+  "titullari": "Elida Hoxha",
+  "tipiveprimtarise": "B",
+  "kredite": 5,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+    
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 2,
+      "seminare": 3,
+      "laboratore": 0,
+      "praktika": 0
+     
+    }
+  ],
+  "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "2",
+  "emertimilendes": "Metodat e kerkimit ne edukim",
+  "titullari": "Nevile Sakti",
+  "tipiveprimtarise": "C",
+  "kredite": 6,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 2,
+      "seminare": 2,
+      "laboratore": 0,
+      "praktika": 0
+     
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+     
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "2",
+  "emertimilendes": "Lende me zgjedhje 1",
+  "titullari": "",
+  "tipiveprimtarise": "C",
+  "kredite": 5,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 2,
+      "seminare": 2,
+      "laboratore": 0,
+      "praktika": 0
+      
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+      
+    }
+  ],
+  "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "2",
+  "emertimilendes": "Histori e mendimit,matematikes dhe informatikes",
+  "titullari": "Dritan Gerbeti",
+  "tipiveprimtarise": "C",
+  "kredite": 5,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 15,
+      "leksione": 2,
+      "seminare": 2,
+      "laboratore": 0,
+      "praktika": 0
+    
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+     
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "2",
+  "emertimilendes": "Histori e mendimit,matematikes",
+  "titullari": "Dritan Gerbeti",
+  "tipiveprimtarise": "m",
+  "kredite": 2,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 8,
+      "leksione": 2,
+      "seminare": 2,
+      "laboratore": 0,
+      "praktika": 0
+      
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+    
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "2",
+  "emertimilendes": "Histori e mendimit,informatikes",
+  "titullari": "Dritan Gerbeti",
+  "tipiveprimtarise": "m",
+  "kredite": 3,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 21,
+      "numrijaveve": 7,
+      "leksione": 2,
+      "seminare": 2,
+      "laboratore": 0,
+      "praktika": 0
+     
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+     
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "2",
+  "emertimilendes": "ICT pe zgjidhjen e problemeve",
+  "titullari": "Arben Llunji",
+  "tipiveprimtarise": "B",
+  "kredite": 5,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 0,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+    
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 14,
+      "leksione": 1,
+      "seminare": 1,
+      "laboratore": 1,
+      "praktika": 0
+    
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "2",
+  "emertimilendes": "Softe dhe kodim ne procesin mesimor",
+  "titullari": "Helga sallaku",
+  "tipiveprimtarise": "C",
+  "kredite": 11,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 0,
+      "numrijaveve": 15,
+      "leksione": 3,
+      "seminare": 4,
+      "laboratore": 2,
+      "praktika": 0
+     
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+    
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "2",
+  "emertimilendes": "Softe ne matematike",
+  "titullari": "",
+  "tipiveprimtarise": "m",
+  "kredite": 5,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 0,
+      "numrijaveve": 15,
+      "leksione": 1,
+      "seminare": 2,
+      "laboratore": 1,
+      "praktika": 0
+     
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+    
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "2",
+  "emertimilendes": "Kodim ne procesin mesimor",
+  "titullari": "",
+  "tipiveprimtarise": "m",
+  "kredite": 6,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 0,
+      "numrijaveve": 15,
+      "leksione": 2,
+      "seminare": 2,
+      "laboratore": 1,
+      "praktika": 0
+     
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+     
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "2",
+  "emertimilendes": "Programim statistikor",
+  "titullari": "Rudin Hoxha",
+  "tipiveprimtarise": "A",
+  "kredite": 5,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 0,
+      "numrijaveve": 15,
+      "leksione": 2,
+      "seminare": 1,
+      "laboratore": 1,
+      "praktika": 0
+     
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+     
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "2",
+  "emertimilendes": "Praktike profesionale",
+  "titullari": "Fatjona Kroni",
+  "tipiveprimtarise": "A",
+  "kredite": 9,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 0,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+     
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 14,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 12
+     
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+},{
+  "viti": "2",
+  "emertimilendes": "Teme Diplome/Provim Formimi",
+  "titullari": "",
+  "tipiveprimtarise": "E",
+  "kredite": 14,
+  "semestri": [
+    {
+      "sem": "semestri 1",
+      "ngarkesajavore": 0,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+     
+    },
+    {
+      "sem": "semestri 2",
+      "ngarkesajavore": 21,
+      "numrijaveve": 0,
+      "leksione": 0,
+      "seminare": 0,
+      "laboratore": 0,
+      "praktika": 0
+      
+    }
+  ],
+ "fakulteti":  "6345459474c24d76af51672a",
+  "departamenti": "6345659fd06188306de0deae",
+  "programi": "634673973dd68d0cb4ddab7b",
+  "planetmesimore": "6346837dc54eb97b565da297",
+  "lendemezgjedhje": []
+}]

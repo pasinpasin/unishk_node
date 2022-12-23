@@ -1,0 +1,21 @@
+const express = require('express');
+const ngarkesepermbajtjaController = require('../../controllers/ngarkesepermbajtja/ngarkesepermbajtjaController')
+
+
+const router = express.Router({mergeParams:true });
+
+
+router
+.route("/")
+.get(ngarkesepermbajtjaController.getAllNgarkesepermbajtja)
+.post(ngarkesepermbajtjaController.createNgarkesepermbajtja);
+
+
+router
+.route('/:id')
+.get(ngarkesepermbajtjaController.getNgarkespermbajtja)
+.patch(ngarkesepermbajtjaController.updateNgarkesepermabjtja)
+.delete(ngarkesepermbajtjaController.deleteNgarkesepermbajtja)
+;
+
+module.exports = router;

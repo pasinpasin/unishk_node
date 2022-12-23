@@ -1,0 +1,26 @@
+
+doctype html
+html
+  head
+    block head
+      meta(charset='UTF-8')
+      meta(name='viewport' content='width=device-width, initial-scale=1.0')
+      
+      link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:300,300i,700')
+      title Natours 
+  body
+    block content
+    
+
+
+      ul
+        each viti in obj
+          li= viti[0]
+            each vitpermbajtja in viti
+              li= vitpermbajtja.emertimilendes
+              each semestri in vitpermbajtja.semestri
+                li= semestri.sem
+       
+        
+
+
