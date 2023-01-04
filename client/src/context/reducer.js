@@ -4,14 +4,18 @@ import {
   LOGIN_USER_BEGIN,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
+  TOGGLE_SIDEBAR,
+  LOGOUT_USER,
 } from "./Actions";
+
+import { initialState } from "./appContext";
 
 const reducer = (state, action) => {
   if (action.type === DISPLAY_ALERT) {
     return {
       ...state,
       showAlert: true,
-      alertType: "error",
+      alertType: "danger",
       alertText: "Plotesoni te gjitha fushat",
     };
   }
@@ -34,12 +38,27 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === LOGIN_USER_ERROR) {
+    console.log(action.payload.msg)
     return {
       ...state,
       isLoading: false,
       showAlert: true,
-      alertType: "error",
+      alertType: "danger",
       alertText: action.payload.msg,
+      
+    };
+  }
+  if (action.type === TOGGLE_SIDEBAR) {
+    return {
+      ...state,
+      showSidebar: !state.showSidebar
+    };
+  }
+  if (action.type ===LOGOUT_USER) {
+    return {
+      ...initialState,
+      user:null,
+      token:null,
     };
   }
 

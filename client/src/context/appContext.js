@@ -8,6 +8,8 @@ import {
   LOGIN_USER_BEGIN,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
+  TOGGLE_SIDEBAR,
+  LOGOUT_USER,
 } from "./Actions";
 
 const initialState = {
@@ -20,6 +22,7 @@ const initialState = {
   user: "",
   token: null,
   userLocation: "",
+  showSidebar:true,
 };
 
 const AppContext = React.createContext();
@@ -40,28 +43,50 @@ const AppProvider = ({ children }) => {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const loginUser = async (currentUser) => {
+    const currentuser2=JSON.stringify(currentUser) ;
     dispatch({ type: LOGIN_USER_BEGIN });
     await delay(5000);
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      
+        
+    },
+    
+   
+  };
+ 
+  
+  
     try {
-      const { data } = await axios.post("/api/v1/auth/login", currentUser);
+      const { data } = await axios.post("/api/v1/users/signin", currentUser);
+      
       const { user, token, location } = data;
+   
       dispatch({
         type: LOGIN_USER_SUCCESS,
         payload: { user, token, location },
       });
       //addUserToLocalStorage({user,token,location})
     } catch (error) {
-      console.log(error.message);
+      console.log();
       dispatch({
         type: LOGIN_USER_ERROR,
-        payload: { msg: error.message },
+        payload: { msg: error.response.data.message },
       });
     }
     clearAlert();
   };
 
+  const toggleSidebar = () => {
+    dispatch({type:TOGGLE_SIDEBAR})
+  }
+
+  const logoutUser= () => {
+    dispatch({type:LOGOUT_USER})
+  }
   return (
-    <AppContext.Provider value={{ ...state, displayAlert, loginUser }}>
+    <AppContext.Provider value={{ ...state, displayAlert, loginUser,toggleSidebar,logoutUser }}>
       {children}
     </AppContext.Provider>
   );

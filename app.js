@@ -10,6 +10,7 @@ const planpermbajtjaRouter = require('./routes/planpermbajtjaRouter');
 const ngarkesaRouter= require('./routes/ngarkesat/ngarkesaRouter');
 const ngarkesepermbajtjaRouter= require('./routes/ngarkesepermbajtja/ngarkesepermbajtjaRouter');
 const evidencaRouter= require('./routes/evidencat/evidencaRouter');
+const globalErrorHandler=require("./controllers/error/globalErrorHandler")
 const path=require("path");
 const app=express();
 //var mustacheExpress= require("mustache-express");
@@ -40,5 +41,5 @@ app.use((req, res, next) => {
   app.use('/api/v1/evidenca', evidencaRouter);
   
   
-  
+  app.use(globalErrorHandler);
   module.exports = app;
