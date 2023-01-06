@@ -6,6 +6,8 @@ import {
   LOGIN_USER_ERROR,
   TOGGLE_SIDEBAR,
   LOGOUT_USER,
+  GET_FAKULTETE_BEGIN,
+  GET_FAKULTETE_SUCCESS,
 } from "./Actions";
 
 import { initialState } from "./appContext";
@@ -27,38 +29,49 @@ const reducer = (state, action) => {
     return { ...state, isLoading: true };
   }
   if (action.type === LOGIN_USER_SUCCESS) {
+    console.log(action.payload.user);
     return {
       ...state,
       isLoading: false,
       user: action.payload.user,
-      userLocation: action.payload.location,
+      token: action.payload.token,
+
       showAlert: true,
       alertType: "success",
       alertText: "User successfully logged in! Redirecting...",
     };
   }
   if (action.type === LOGIN_USER_ERROR) {
-    console.log(action.payload.msg)
+    console.log(action.payload.msg);
     return {
       ...state,
       isLoading: false,
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
-      
     };
   }
   if (action.type === TOGGLE_SIDEBAR) {
     return {
       ...state,
-      showSidebar: !state.showSidebar
+      showSidebar: !state.showSidebar,
     };
   }
-  if (action.type ===LOGOUT_USER) {
+  if (action.type === LOGOUT_USER) {
     return {
       ...initialState,
-      user:null,
-      token:null,
+      user: null,
+      token: null,
+    };
+  }
+  if (action.type === GET_FAKULTETE_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+  if (action.type === GET_FAKULTETE_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      fakultetet: action.payload.fakultetet,
     };
   }
 

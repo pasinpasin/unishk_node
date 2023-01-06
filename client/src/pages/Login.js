@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import React, { Component } from 'react';
-import Wrapper from '../assets/wrappers/RegisterPage';
+import React, { Component } from "react";
+import Wrapper from "../assets/wrappers/RegisterPage";
 import { useAppContext } from "../context/appContext";
 import { useNavigate } from "react-router-dom";
-import Alert from "../components/Alert.js"
-import FormRow from "../components/FormRow"
-import Logo from "../components/Logo"
-
+import Alert from "../components/Alert.js";
+import FormRow from "../components/FormRow";
+import Logo from "../components/Logo";
 
 const initialState = {
   email: "",
@@ -17,7 +16,7 @@ const Login = () => {
   const [values, setValues] = useState(initialState);
   const navigate = useNavigate();
 
-  const { user, isLoading, showAlert, displayAlert, loginUser } =
+  const { user, token, isLoading, showAlert, displayAlert, loginUser } =
     useAppContext();
 
   const toggleMember = () => {
@@ -31,13 +30,13 @@ const Login = () => {
     e.preventDefault();
     const { email, password, isMember } = values;
     if (!email || !password) {
-      console.log("je ketu")
+      console.log("je ketu");
       displayAlert();
       return;
     }
     const currentUser = { email, password };
     if (isMember) {
-      console.log("ketu")
+      console.log("ketu");
       loginUser(currentUser);
     } else {
       console.log("duhet te logoheni");
@@ -48,48 +47,38 @@ const Login = () => {
   useEffect(() => {
     if (user) {
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/");
       }, 5000);
     }
   }, [user, navigate]);
-  
-  return (
-	<Wrapper className='full-page'>
-	<form className='form' onSubmit={onSubmit}>
-	 {  <Logo /> }
-	 <h3>{'Login'}</h3>
-	  {showAlert && <Alert />}
-	 
 
-	  {/* email input */}
-	  <FormRow
-		type='email'
-		name='email'
-		value={values.email}
-		handleChange={handleChange}
-	  />
-	  {/* password input */}
-	  <FormRow
-		type='password'
-		name='password'
-		value={values.password}
-		handleChange={handleChange}
-	  />
-	     <button
-          type='submit'
-          className='btn btn-block '
-          disabled={isLoading}
-          
-        >
-          {isLoading ? 'loading...' : 'Login'}
+  return (
+    <Wrapper className="full-page">
+      <form className="form" onSubmit={onSubmit}>
+        {<Logo />}
+        <h3>{"Login"}</h3>
+        {showAlert && <Alert />}
+
+        {/* email input */}
+        <FormRow
+          type="email"
+          name="email"
+          value={values.email}
+          handleChange={handleChange}
+        />
+        {/* password input */}
+        <FormRow
+          type="password"
+          name="password"
+          value={values.password}
+          handleChange={handleChange}
+        />
+        <button type="submit" className="btn btn-block " disabled={isLoading}>
+          {isLoading ? "loading..." : "Login"}
         </button>
-	  <p>
-		{values.isMember ? 'Not a member yet?' : 'Already a member?'}
-		
-	  </p>
-	</form>
-  </Wrapper>
-    
+        <p>{values.isMember ? "Not a member yet?" : "Already a member?"}</p>
+      </form>
+    </Wrapper>
   );
 };
 
