@@ -8,6 +8,7 @@ import {
   LOGOUT_USER,
   GET_FAKULTETE_BEGIN,
   GET_FAKULTETE_SUCCESS,
+  GET_FAKULTETE_ERROR,
 } from "./Actions";
 
 import { initialState } from "./appContext";
@@ -72,6 +73,17 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       fakultetet: action.payload.fakultetet,
+    };
+  }
+  if (action.type === GET_FAKULTETE_ERROR) {
+    console.log(action.payload.msg);
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+      fakultetet:[],
     };
   }
 

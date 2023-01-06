@@ -29,9 +29,9 @@ const Fakultetet = () => {
     return <Loading center />;
   }
 
-  if (fakultetet.length === 0) {
+ /*  if (fakultetet.length === 0) {
     return <h2>No jobs to display...</h2>;
-  }
+  } */
   return (
     <Wrapper>
       {showAlert && <Alert />}

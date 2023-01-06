@@ -12,6 +12,8 @@ import {
   LOGOUT_USER,
   GET_FAKULTETE_SUCCESS,
   GET_FAKULTETE_BEGIN,
+  GET_FAKULTETE_ERROR,
+
 } from "./Actions";
 
 const initialState = {
@@ -109,6 +111,10 @@ const AppProvider = ({ children }) => {
       console.log({ data });
       dispatch({ type: GET_FAKULTETE_SUCCESS, payload: { fakultetet } });
     } catch (error) {
+      dispatch({
+        type: GET_FAKULTETE_ERROR,
+        payload: { msg: error.response.data.message },
+      });
       console.log(error);
     }
     clearAlert();
