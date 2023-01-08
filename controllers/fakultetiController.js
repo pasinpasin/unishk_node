@@ -11,8 +11,8 @@ exports.checkBody = (req, res, next) => {
   }
   next();
 };
-exports.getAllFakulteti = catchAsync(async (req, res, next) => {
-  console.log("ketu jam");
+ exports.getAllFakulteti = catchAsync(async (req, res, next) => {
+  console.log('ketu jam fakulteti controller');
   // EXECUTE QUERY
 
   const fakultetet = await Fakulteti.find();
@@ -25,7 +25,10 @@ exports.getAllFakulteti = catchAsync(async (req, res, next) => {
       fakultetet,
     },
   });
-});
+}); 
+
+
+
 
 exports.getFakulteti = async (req, res) => {
   try {

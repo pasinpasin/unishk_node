@@ -45,10 +45,15 @@ const AppProvider = ({ children }) => {
       return response;
     },
     (error) => {
-      // console.log(error.response)
+     console.log(error.response.data.message)
       if (error.response.status === 401) {
         logoutUser();
       }
+      let errormsg=error.response.data.message
+      if (errormsg.includes("jwt expired")) {
+        logoutUser();
+      }
+
       return Promise.reject(error);
     }
   );
@@ -102,7 +107,8 @@ const AppProvider = ({ children }) => {
     try {
       const { user } = state.user;
 
-      const { data } = await axios.get("/api/v1/fakulteti", user, {
+      // const { data } = await authFetch.get("/api/v1/fakulteti", user, {
+        const { data } = await authFetch.get("/fakulteti", user, {
         headers: "Cache-Control: no-cache, no-store",
       });
       const fakultetet = data.data.fakultetet;
@@ -115,7 +121,7 @@ const AppProvider = ({ children }) => {
         type: GET_FAKULTETE_ERROR,
         payload: { msg: error.response.data.message },
       });
-      console.log(error);
+      console.log(error.response.data.message);
     }
     clearAlert();
   };

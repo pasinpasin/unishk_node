@@ -56,8 +56,10 @@ exports.protect = catchAsync(async (req, res, next) => {
   if (!token) {
     return next(new AppError("Ju nuk jeni te loguar!", 401));
   }
+  
 
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
 
   const freshUSer = await User.findById(decoded.id);
   if (!freshUSer) {

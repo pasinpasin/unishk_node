@@ -76,7 +76,7 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === GET_FAKULTETE_ERROR) {
-    console.log(action.payload.msg);
+   
     return {
       ...state,
       isLoading: false,
