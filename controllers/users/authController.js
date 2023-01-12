@@ -1,5 +1,6 @@
-const User = require("../../models/users/userModel");
 const { promisify } = require("util");
+const User = require("../../models/users/userModel");
+
 const jwt = require("jsonwebtoken");
 const AppError = require("../../utils/AppError");
 const catchAsync = require("../../utils/catchAsync");
@@ -56,12 +57,11 @@ exports.protect = catchAsync(async (req, res, next) => {
   if (!token) {
     return next(new AppError("Ju nuk jeni te loguar!", 401));
   }
-  
 
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
-
   const freshUSer = await User.findById(decoded.id);
+
   if (!freshUSer) {
     return next(
       new AppError("Useri qe i perket ketij token nuk ekziston me", 401)

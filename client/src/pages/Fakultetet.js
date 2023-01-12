@@ -3,7 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Loading from "../components/Loading";
 import Alert from "../components/Alert";
-import Wrapper from "../assets/wrappers/JobsContainer";
+import Wrapper from "../assets/wrappers/Tabela";
+import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
+import { GrEdit } from "react-icons/gr";
+import { MdDelete } from "react-icons/md";
 
 const Fakultetet = () => {
   //const [values, setValues] = useState(initialState);
@@ -25,23 +30,62 @@ const Fakultetet = () => {
 
     // eslint-disable-next-line
   }, []);
+
   if (isLoading) {
     return <Loading center />;
   }
 
- /*  if (fakultetet.length === 0) {
+  /*  if (fakultetet.length === 0) {
     return <h2>No jobs to display...</h2>;
   } */
+
   return (
     <Wrapper>
       {showAlert && <Alert />}
-
+      <div className="actions">
+        <button
+          type="button"
+          className="btn add-btn"
+          /*   onClick={() => deleteJob(_id)} */
+        >
+          Shto
+        </button>
+      </div>
       <table>
+        <thead>
+          <tr>
+            <th>Fakulteti</th>
+            <th>Veprimet</th>
+          </tr>
+        </thead>
         <tbody>
           {fakultetet.map((item) => {
             return (
               <tr key={item._id}>
-                <td>{item.emertimi}</td>
+                <td data-label="Fakulteti">
+                  <NavLink
+                    to="kot"
+                    key={item._id}
+                    /* onClick={toggleSidebar} */
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active" : "nav-link"
+                    }
+                    end
+                  >
+                    {item.emertimi}
+                  </NavLink>
+                </td>
+                <td data-label="Veprimet">
+                  <div className="actions">
+                    <Link
+                      to="/modifiko"
+                      alt="Modifiko"
+                      /* onClick={ () => setEditJob(_id) }*/
+                    >
+                      <span className="icon">{<GrEdit />}</span>
+                    </Link>
+                  </div>
+                </td>
               </tr>
             );
           })}
