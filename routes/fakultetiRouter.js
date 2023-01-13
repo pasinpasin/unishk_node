@@ -17,7 +17,11 @@ router.use(
 
 router
   .route("/")
-  .get(authController.protect, fakultetiController.getAllFakulteti)
+  .get(
+    authController.protect,
+    authController.restrictTo("admin", "pedagog"),
+    fakultetiController.getAllFakulteti
+  )
   .post(fakultetiController.checkBody, fakultetiController.createFakulteti);
 
 router

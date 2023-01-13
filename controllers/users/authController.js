@@ -11,6 +11,30 @@ const signedToken = (id) => {
   });
 };
 
+const createSendToken = (user, statusCode, res) => {
+  const token = signedToken(user._id);
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+  };
+  //if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+
+  res.cookie("jwt", token, cookieOptions);
+
+  // Remove password from output
+  user.password = undefined;
+
+  res.status(statusCode).json({
+    status: "success",
+    token,
+    data: {
+      user,
+    },
+  });
+};
+
 exports.signUp = catchAsync(async (req, res) => {
   // const newTour = new Tour({})
   // newTour.save()
@@ -37,13 +61,7 @@ exports.signIn = catchAsync(async (req, res, next) => {
   if (!user || (await user.correctPassword(password, user.password))) {
     return next(new AppError("Incorrect email or password", 401));
   }
-
-  const token = signedToken(user._id);
-  res.status(200).json({
-    status: "success",
-    token,
-    user,
-  });
+  createSendToken(user, 200, res);
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -77,3 +95,15 @@ exports.protect = catchAsync(async (req, res, next) => {
   req.user = freshUSer;
   next();
 });
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    // roles ['admin', 'lead-guide']. role='user'
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError("You do not have permission to perform this action", 403)
+      );
+    }
+
+    next();
+  };
+};

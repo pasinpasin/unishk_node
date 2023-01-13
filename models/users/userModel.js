@@ -65,6 +65,12 @@ const userSchema = new mongoose.Schema(
       required: [true, "Duhe te perkasin nje departamenti"],
     },
 
+    role: {
+      type: String,
+      enum: ["admin", "pedagog", "shefdepartamenti", "dekan", "kurrikula"],
+      default: "pedagog",
+    },
+
     passwordChangedAt: Date,
   },
   { timestamps: true },
