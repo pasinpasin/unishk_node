@@ -19,7 +19,7 @@ router
   .route("/")
   .get(
     authController.protect,
-    authController.restrictTo("admin", "pedagog"),
+    //authController.restrictTo("admin", "pedagog"),
     fakultetiController.getAllFakulteti
   )
   .post(fakultetiController.checkBody, fakultetiController.createFakulteti);

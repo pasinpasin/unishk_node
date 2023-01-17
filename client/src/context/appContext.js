@@ -75,7 +75,7 @@ const AppProvider = ({ children }) => {
     try {
       const { data } = await axios.post("/api/v1/users/signin", currentUser);
 
-      const { user, token } = data;
+      const { user, token } = data.data;
 
       dispatch({
         type: LOGIN_USER_SUCCESS,
