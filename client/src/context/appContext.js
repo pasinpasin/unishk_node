@@ -13,6 +13,8 @@ import {
   GET_FAKULTETE_SUCCESS,
   GET_FAKULTETE_BEGIN,
   GET_FAKULTETE_ERROR,
+  GET_CURRENT_USER_BEGIN,
+  GET_CURRENT_USER_SUCCESS,
 } from "./Actions";
 
 const initialState = {
@@ -22,7 +24,7 @@ const initialState = {
   alertText: "",
   alertType: "",
   //user: user ? JSON.parse(user) : null,
-  user: "",
+  user: null,
   token: null,
   userLocation: "",
   showSidebar: true,
@@ -34,7 +36,7 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  axios.defaults.headers.common["Authorization"] = `Bearer ${state.token}`;
+  //axios.defaults.headers.common["Authorization"] = `Bearer ${state.token}`;
   const authFetch = axios.create({
     baseURL: "/api/v1",
   });
@@ -108,7 +110,7 @@ const AppProvider = ({ children }) => {
 
       // const { data } = await authFetch.get("/api/v1/fakulteti", user, {
       const { data } = await authFetch.get("/fakulteti", user, {
-        headers: "Cache-Control: no-cache, no-store",
+        // headers: "Cache-Control: no-cache, no-store",
       });
       const fakultetet = data.data.fakultetet;
       console.log(fakultetet);
@@ -124,6 +126,27 @@ const AppProvider = ({ children }) => {
     }
     clearAlert();
   };
+
+  const getCurrentUser = async () => {
+    dispatch({ type: GET_CURRENT_USER_BEGIN });
+    try {
+      const { data } = await axios.get("/api/v1/auth/getCurrentUser");
+      const { user } = data.data;
+      console.log(user);
+
+      dispatch({
+        type: GET_CURRENT_USER_SUCCESS,
+        payload: { user },
+      });
+    } catch (error) {
+      if (error.response.status === 401) return;
+      logoutUser();
+    }
+  };
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+
   return (
     <AppContext.Provider
       value={{

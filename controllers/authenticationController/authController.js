@@ -96,58 +96,21 @@ exports.protect = catchAsync(async (req, res, next) => {
   req.user = freshUSer;
   next();
 });
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    // roles ['admin', 'lead-guide']. role='user'
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError("You do not have permission to perform this action", 403)
+      );
+    }
 
-const getUser = async (req, res) => {
-  const user = await User.findById(req.user._id);
-
-  res.status(21).json({
-    status: "success",
-    //token,
-    data: {
-      user,
-    },
-  });
+    next();
+  };
 };
 
 exports.isLoggedIn = catchAsync(async (req, res, next) => {
-  if (req.cookies.jwt) {
-    try {
-      // 1) verify token
-      const decoded = await promisify(jwt.verify)(
-        req.cookies.jwt,
-        process.env.JWT_SECRET
-      );
-
-      // 2) Check if user still exists
-      const currentUser = await User.findById(decoded.id);
-      if (!currentUser) {
-        return next();
-      }
-
-      // 3) Check if user changed password after the token was issued
-      if (currentUser.changedPasswordAfter(decoded.iat)) {
-        return next();
-      }
-
-      // THERE IS A LOGGED IN USER
-      res.locals.user = currentUser;
-      req.user = currentUser;
-      res.status(201).json({
-        status: "success",
-        //token,
-        data: {
-          user: currentUser,
-        },
-      });
-
-      return next();
-    } catch (err) {
-      return next(new AppError("Not logged in.", 401));
-    }
-  } else return next(new AppError("Not logged in.", 401));
-});
-
-/* exports.isLoggedIn = async (req, res, next) => {
+  console.log("ketu");
   if (req.cookies.jwt) {
     try {
       // 1) verify token
@@ -169,25 +132,45 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
 
       // THERE IS A LOGGED IN USER
       //res.locals.user = currentUser;
-      res.user = currentUser;
-      console.log(req.user);
+      req.user = currentUser;
+      console.log(currentUser);
+
+      /* res.status(201).json({
+        status: "success",
+
+        data: {
+          user: currentUser,
+        },
+      }); */
       return next();
     } catch (err) {
-      return next();
-    }
-  }
-  next();
-}; */
-
-exports.restrictTo = (...roles) => {
-  return (req, res, next) => {
-    // roles ['admin', 'lead-guide']. role='user'
-    if (!roles.includes(req.user.role)) {
+      console.log("gabim");
       return next(
-        new AppError("You do not have permission to perform this action", 403)
+        new AppError("You do not have permission to perform this action", 401)
       );
     }
+  }
+  return next(
+    new AppError("You do not have permission to perform this action", 401)
+  );
+});
 
-    next();
-  };
+exports.getCurrentUser = async (req, res, next) => {
+  try {
+    console.log(req.user);
+    const user = await User.findById(req.user._id);
+    console.log(user);
+    res.status(201).json({
+      status: "success",
+
+      data: {
+        user,
+      },
+    });
+  } catch (err) {
+    res.status(401).json({
+      status: "fail",
+      message: err.message,
+    });
+  }
 };

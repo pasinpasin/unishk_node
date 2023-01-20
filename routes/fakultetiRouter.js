@@ -18,7 +18,7 @@ router.use(
 router
   .route("/")
   .get(
-    authController.protect,
+    authController.isLoggedIn,
     //authController.restrictTo("admin", "pedagog"),
     fakultetiController.getAllFakulteti
   )

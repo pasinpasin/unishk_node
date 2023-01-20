@@ -9,6 +9,8 @@ import {
   GET_FAKULTETE_BEGIN,
   GET_FAKULTETE_SUCCESS,
   GET_FAKULTETE_ERROR,
+  GET_CURRENT_USER_BEGIN,
+  GET_CURRENT_USER_SUCCESS,
 } from "./Actions";
 
 import { initialState } from "./appContext";
@@ -63,6 +65,7 @@ const reducer = (state, action) => {
       ...initialState,
       user: null,
       token: null,
+      userLoading: false,
     };
   }
   if (action.type === GET_FAKULTETE_BEGIN) {
@@ -76,14 +79,23 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === GET_FAKULTETE_ERROR) {
-   
     return {
       ...state,
       isLoading: false,
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
-      fakultetet:[],
+      fakultetet: [],
+    };
+  }
+  if (action.type === GET_CURRENT_USER_BEGIN) {
+    return { ...state, userLoading: true, showAlert: false };
+  }
+  if (action.type === GET_CURRENT_USER_SUCCESS) {
+    return {
+      ...state,
+      userLoading: false,
+      user: action.payload.user,
     };
   }
 
