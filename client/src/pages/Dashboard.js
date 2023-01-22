@@ -14,9 +14,9 @@ const Dashboard = () => {
       console.log(error);
     }
   };
-  useEffect(() => {
+ /*  useEffect(() => {
     fetchData();
-  }, []);
+  }, []); */
 
   return (
     <Wrapper>

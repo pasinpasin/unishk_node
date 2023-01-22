@@ -92,10 +92,12 @@ const reducer = (state, action) => {
     return { ...state, userLoading: true, showAlert: false };
   }
   if (action.type === GET_CURRENT_USER_SUCCESS) {
+    
     return {
       ...state,
       userLoading: false,
       user: action.payload.user,
+     
     };
   }
 

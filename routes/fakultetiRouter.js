@@ -4,6 +4,7 @@ const fakultetiController = require("../controllers/fakultetiController");
 const ngarkesaRouter = require("./ngarkesat/ngarkesaRouter");
 const evidencaRouter = require("./evidencat/evidencaRouter");
 const authController = require("../controllers/users/authController");
+const checkMiddleware=require("../middleware/checkAuth")
 
 router.use("/:fakulteti/:vitiakademik/ngarkesa", ngarkesaRouter);
 router.use(
@@ -18,7 +19,7 @@ router.use(
 router
   .route("/")
   .get(
-    authController.isLoggedIn,
+   checkMiddleware.isAuthenticated,
     //authController.restrictTo("admin", "pedagog"),
     fakultetiController.getAllFakulteti
   )

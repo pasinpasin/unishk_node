@@ -98,24 +98,25 @@ const AppProvider = ({ children }) => {
     dispatch({ type: TOGGLE_SIDEBAR });
   };
 
-  const logoutUser = () => {
+  const logoutUser = async () => {
+    await axios.get("/api/v1/auth/getCurrentUser/logout");
     dispatch({ type: LOGOUT_USER });
   };
 
   const ListoFakultetet = async () => {
-    console.log(axios.defaults.headers);
+    //console.log(axios.defaults.headers);
     dispatch({ type: GET_FAKULTETE_BEGIN });
     try {
       const { user } = state.user;
-
+console.log(user);
       // const { data } = await authFetch.get("/api/v1/fakulteti", user, {
-      const { data } = await authFetch.get("/fakulteti", user, {
+      const { data } = await authFetch.get("/fakulteti", {
         // headers: "Cache-Control: no-cache, no-store",
       });
       const fakultetet = data.data.fakultetet;
-      console.log(fakultetet);
+      //console.log(fakultetet);
 
-      console.log({ data });
+      //console.log({ data });
       dispatch({ type: GET_FAKULTETE_SUCCESS, payload: { fakultetet } });
     } catch (error) {
       dispatch({
@@ -130,16 +131,18 @@ const AppProvider = ({ children }) => {
   const getCurrentUser = async () => {
     dispatch({ type: GET_CURRENT_USER_BEGIN });
     try {
-      const { data } = await axios.get("/api/v1/auth/getCurrentUser");
+      const { data } = await authFetch("/auth/getCurrentUser");
+      
       const { user } = data.data;
-      console.log(user);
+      console.log({ user });
 
       dispatch({
         type: GET_CURRENT_USER_SUCCESS,
         payload: { user },
       });
     } catch (error) {
-      if (error.response.status === 401) return;
+      if (error.response.status === 401) 
+      //return;
       logoutUser();
     }
   };
