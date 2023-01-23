@@ -6,6 +6,8 @@ import Alert from "../components/Alert";
 import Wrapper from "../assets/wrappers/Tabela";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import FormRow from "../components/FormRow";
+import axios from "axios";
 
 import { GrEdit } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
@@ -23,7 +25,11 @@ const Fakultetet = () => {
     loginUser,
     ListoFakultetet,
     fakultetet,
+    SHTOFAKULTET_BEGIN,
   } = useAppContext();
+
+  const [shtofakultetloading, setshtofakultetLoading] = useState(false);
+  const [fakultet, setfakultet] = useState("");
 
   useEffect(() => {
     ListoFakultetet();
@@ -35,22 +41,56 @@ const Fakultetet = () => {
     return <Loading center />;
   }
 
+  if (shtofakultetloading) {
+    return <Loading center />;
+  }
+
   /*  if (fakultetet.length === 0) {
     return <h2>No jobs to display...</h2>;
   } */
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setshtofakultetLoading(true);
+    const fakulteti = fakultet;
+    if (!fakulteti) {
+      setshtofakultetLoading(false);
+      //displayAlert();
+      return;
+    }
+    shtoFakultet(fakulteti);
+  };
+  const handleChange = (e) => {
+    setfakultet({ ...fakultet, [e.target.name]: e.target.value });
+  };
+
+  const shtoFakultet = async (fak) => {
+    //await delay(2000);
+    try {
+      const { data } = await axios.post("/api/v1/fakulteti", fak);
+      setshtofakultetLoading(false);
+      //addUserToLocalStorage({user,token,location})
+    } catch (error) {
+      setshtofakultetLoading(false);
+      console.log();
+    }
+  };
 
   return (
     <Wrapper>
       {showAlert && <Alert />}
-      <div className="actions">
-        <button
-          type="button"
-          className="btn add-btn"
-          /*   onClick={() => deleteJob(_id)} */
-        >
-          Shto
+
+      <form className="form" onSubmit={onSubmit}>
+        <FormRow
+          type="text"
+          name="fakulteti"
+          value={fakultet}
+          handleChange={handleChange}
+        />
+        <button type="submit" className="btn btn-block ">
+          Shto fakultet
         </button>
-      </div>
+      </form>
+
       <table>
         <thead>
           <tr>

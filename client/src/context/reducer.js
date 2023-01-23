@@ -45,7 +45,7 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === LOGIN_USER_ERROR) {
-    console.log(action.payload.msg);
+    //console.log(action.payload.msg);
     return {
       ...state,
       isLoading: false,
@@ -92,12 +92,10 @@ const reducer = (state, action) => {
     return { ...state, userLoading: true, showAlert: false };
   }
   if (action.type === GET_CURRENT_USER_SUCCESS) {
-    
     return {
       ...state,
       userLoading: false,
       user: action.payload.user,
-     
     };
   }
 
