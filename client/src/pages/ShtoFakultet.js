@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { useAppContext } from "../context/appContext";
@@ -14,8 +15,9 @@ const ShtoFakultet = () => {
     useAppContext();
 
   const navigate = useNavigate();
+  
 
-  const [formFakultet, setformFakultet] = useState({ fakulteti: "" });
+  const [fakulteti, setfakulteti] = useState("");
   //const [loading, setloading] = useState(false);
 
   //const isMounted = useRef(true);
@@ -25,16 +27,21 @@ const ShtoFakultet = () => {
   }
 
   const handleChange = (e) => {
-    setformFakultet(e.target.value);
+    setfakulteti(e.target.value);
   };
 
   const placeSubmitHandler = (event) => {
     event.preventDefault();
     //const  fakulteti  = formFakultet;
-    const fak = "/fakulteti1";
+    const fak = "/fakulteti";
     const meth = "POST";
     const ti = "SHTO_FAKULTET";
-    sendRequest(fak, meth, formFakultet, ti);
+    //console.log(fakulteti);
+    const bodytosend= {emertimi:`${fakulteti}`}
+    console.log(bodytosend);
+
+    sendRequest(fak, meth,bodytosend, ti);
+    navigate('/');
   };
 
   return (
@@ -48,8 +55,8 @@ const ShtoFakultet = () => {
           {/* email input */}
           <FormRow
             type="text"
-            name="formFakultet"
-            value={formFakultet}
+            name="fakulteti"
+            value={fakulteti}
             handleChange={handleChange}
           />
 

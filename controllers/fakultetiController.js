@@ -48,7 +48,7 @@ exports.getFakulteti = async (req, res) => {
 };
 
 exports.createFakulteti = async (req, res) => {
-  // console.log(req.body);
+   console.log(req.body);
 
   const newFakulteti = await Fakulteti.create(req.body);
   res.status(201).json({

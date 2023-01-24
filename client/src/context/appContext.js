@@ -107,7 +107,7 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const sendRequest = async (url, method, body, tipi) => {
+  const sendRequest = async (url, method, body = {}, tipi) => {
     // setIsLoading(true);
     console.log(tipi);
     /* const httpAbortCtrl = new AbortController();
@@ -115,7 +115,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: `${tipi}_BEGIN` });
 
     try {
-      const { response } = await authFetch({
+      const  response  = await authFetch({
         method: method,
         url: url,
         data: body,
@@ -140,6 +140,7 @@ const AppProvider = ({ children }) => {
           payload: { msg: error.response.data.message },
         });
       } else {
+        console.log(error);
         dispatch({
           type: `${tipi}_ERROR`,
           payload: { msg: "gabim ne server" },
