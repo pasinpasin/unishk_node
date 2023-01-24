@@ -28,9 +28,6 @@ const Fakultetet = () => {
     SHTOFAKULTET_BEGIN,
   } = useAppContext();
 
-  const [shtofakultetloading, setshtofakultetLoading] = useState(false);
-  const [fakultet, setfakultet] = useState("");
-
   useEffect(() => {
     ListoFakultetet();
 
@@ -41,56 +38,24 @@ const Fakultetet = () => {
     return <Loading center />;
   }
 
-  if (shtofakultetloading) {
-    return <Loading center />;
-  }
-
   /*  if (fakultetet.length === 0) {
     return <h2>No jobs to display...</h2>;
   } */
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setshtofakultetLoading(true);
-    const fakulteti = fakultet;
-    if (!fakulteti) {
-      setshtofakultetLoading(false);
-      //displayAlert();
-      return;
-    }
-    shtoFakultet(fakulteti);
-  };
-  const handleChange = (e) => {
-    setfakultet({ ...fakultet, [e.target.name]: e.target.value });
-  };
-
-  const shtoFakultet = async (fak) => {
-    //await delay(2000);
-    try {
-      const { data } = await axios.post("/api/v1/fakulteti", fak);
-      setshtofakultetLoading(false);
-      //addUserToLocalStorage({user,token,location})
-    } catch (error) {
-      setshtofakultetLoading(false);
-      console.log();
-    }
-  };
 
   return (
     <Wrapper>
       {showAlert && <Alert />}
-
-      <form className="form" onSubmit={onSubmit}>
-        <FormRow
-          type="text"
-          name="fakulteti"
-          value={fakultet}
-          handleChange={handleChange}
-        />
-        <button type="submit" className="btn btn-block ">
-          Shto fakultet
-        </button>
-      </form>
-
+      <div className="actions">
+        <Link to="krijofakultet">
+          <button
+            type="button"
+            className="btn add-btn"
+            /*   onClick={() => deleteJob(_id)} */
+          >
+            Shto fakultet
+          </button>
+        </Link>
+      </div>
       <table>
         <thead>
           <tr>

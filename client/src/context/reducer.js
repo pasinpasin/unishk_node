@@ -11,11 +11,15 @@ import {
   GET_FAKULTETE_ERROR,
   GET_CURRENT_USER_BEGIN,
   GET_CURRENT_USER_SUCCESS,
+  SHTO_FAKULTET_BEGIN,
+  SHTO_FAKULTET_SUCCESS,
+  SHTO_FAKULTET_ERROR,
 } from "./Actions";
 
 import { initialState } from "./appContext";
 
 const reducer = (state, action) => {
+  console.log(action.type);
   if (action.type === DISPLAY_ALERT) {
     return {
       ...state,
@@ -88,6 +92,29 @@ const reducer = (state, action) => {
       fakultetet: [],
     };
   }
+
+  if (action.type === SHTO_FAKULTET_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+  if (action.type === SHTO_FAKULTET_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: false,
+      alertType: "success",
+      alertText: "Fakulteti i shtua",
+    };
+  }
+  if (action.type === SHTO_FAKULTET_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
   if (action.type === GET_CURRENT_USER_BEGIN) {
     return { ...state, userLoading: true, showAlert: false };
   }

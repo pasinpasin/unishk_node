@@ -6,6 +6,7 @@ import Departamentet from "./pages/Departamentet";
 import Programet from "./pages/Programet";
 import Pedagoget from "./pages/Pedagoget";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import ShtoFakultet from "./pages/ShtoFakultet";
 
 function App() {
   return (
@@ -20,11 +21,13 @@ function App() {
               </ProtectedRoute>
             }
           />
+
           <Route path="departamentet" element={<Departamentet />} />
           <Route path="programet" element={<Programet />} />
           <Route path="pedagoget" element={<Pedagoget />} />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/krijofakultet" element={<ShtoFakultet />} />
       </Routes>
     </BrowserRouter>
   );
