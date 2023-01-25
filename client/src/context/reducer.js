@@ -19,7 +19,7 @@ import {
 import { initialState } from "./appContext";
 
 const reducer = (state, action) => {
-  console.log(action.type);
+ // console.log(action.type);
   if (action.type === DISPLAY_ALERT) {
     return {
       ...state,
@@ -76,12 +76,13 @@ const reducer = (state, action) => {
     return { ...state, isLoading: true, showAlert: false };
   }
   if (action.type === GET_FAKULTETE_SUCCESS) {
-    console.log(action.payload);
+    console.log(action.payload.data.data.fakultetet);
     return {
       ...state,
       isLoading: false,
-      // fakultetet: action.payload.fakultetet,
-      fakultetet: action.payload,
+       fakultetet: action.payload.data.data.fakultetet,
+      //fakultetet: action.payload,
+     // fakultetet: action.payload.responseData.data,
     };
   }
   if (action.type === GET_FAKULTETE_ERROR) {

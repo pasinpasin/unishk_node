@@ -109,30 +109,34 @@ const AppProvider = ({ children }) => {
 
   const sendRequest = async (url, method, body = {}, tipi) => {
     // setIsLoading(true);
-    console.log(tipi);
+   // console.log(tipi);
     /* const httpAbortCtrl = new AbortController();
       activeHttpRequests.current.push(httpAbortCtrl); */
     dispatch({ type: `${tipi}_BEGIN` });
 
     try {
-      const response = await authFetch({
+      const {data} = await authFetch({
         method: method,
         url: url,
         data: body,
       });
-
-      const responseData = response.data;
+      console.log(data)
+      //const responseData = response.data;
+      
+     // console.log(response.data.data )
+      //const fakultetet = response.data.fakultetet;
       //console.log({ responseData });
       dispatch({
         type: `${tipi}_SUCCESS`,
-        payload: { responseData },
+       payload: { data },
+       // payload: { fakultetet } 
       });
       /* 
         activeHttpRequests.current = activeHttpRequests.current.filter(
           (reqCtrl) => reqCtrl !== httpAbortCtrl
         ); */
 
-      return responseData;
+     // return responseData;
     } catch (error) {
       if (error.response) {
         dispatch({

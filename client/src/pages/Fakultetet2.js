@@ -41,6 +41,7 @@ const Fakultetet2 = () => {
   };
 
   useEffect(() => {
+    console.log("u thirr")
     sendRequest("/fakulteti", "GET", {}, "GET_FAKULTETE");
     //ListoFakultetet();
 
@@ -48,8 +49,8 @@ const Fakultetet2 = () => {
 
     // eslint-disable-next-line
   }, []);
-  let fak = { fakultetet };
-  console.log(fakultetet.responseData);
+ // let [fak] = fakultetet.data;
+  console.log(fakultetet.length);
 
   if (isLoading) {
     return <Loading center />;
@@ -64,7 +65,7 @@ const Fakultetet2 = () => {
       {showAlert && <Alert />}
       <div>
         <h2>Fakultetet</h2>
-        <Tabela kol={columns} data={fakultetet2} />
+       { fakultetet.length > 0 ? <Tabela kol={columns} data2={fakultetet} />: "S ka fakultete"}
       </div>
     </Wrapper>
   );
