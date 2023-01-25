@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import Fakultetet from "./pages/Fakultetet";
+import Fakultetet from "./pages/Fakultetet2";
 import Login from "./pages/Login";
 import Departamentet from "./pages/Departamentet";
 import Programet from "./pages/Programet";

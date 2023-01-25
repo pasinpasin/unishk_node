@@ -115,14 +115,14 @@ const AppProvider = ({ children }) => {
     dispatch({ type: `${tipi}_BEGIN` });
 
     try {
-      const  response  = await authFetch({
+      const response = await authFetch({
         method: method,
         url: url,
         data: body,
       });
-      // console.log(response);
-      const responseData = response.data;
 
+      const responseData = response.data;
+      //console.log({ responseData });
       dispatch({
         type: `${tipi}_SUCCESS`,
         payload: { responseData },
@@ -132,7 +132,7 @@ const AppProvider = ({ children }) => {
           (reqCtrl) => reqCtrl !== httpAbortCtrl
         ); */
 
-      //return responseData;
+      return responseData;
     } catch (error) {
       if (error.response) {
         dispatch({

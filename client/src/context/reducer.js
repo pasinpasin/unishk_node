@@ -76,10 +76,12 @@ const reducer = (state, action) => {
     return { ...state, isLoading: true, showAlert: false };
   }
   if (action.type === GET_FAKULTETE_SUCCESS) {
+    console.log(action.payload);
     return {
       ...state,
       isLoading: false,
-      fakultetet: action.payload.fakultetet,
+      // fakultetet: action.payload.fakultetet,
+      fakultetet: action.payload,
     };
   }
   if (action.type === GET_FAKULTETE_ERROR) {

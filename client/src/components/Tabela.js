@@ -1,35 +1,39 @@
 import Wrapper from "../assets/wrappers/Tabela";
-function Table({ columns, data }) {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
-  // Render Data Table UI
+import React from "react";
+
+const Tabela = (props) => {
+  console.log(props.data);
   return (
-    <Wrapper>
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-              ))}
+    <table>
+      <thead>
+        <tr>
+          {props.kol.length > 0 ? (
+            props.kol.map((column) => <th> {column.header}</th>)
+          ) : (
+            <th colSpan={3}>Nuk ka te dhena per kolonat</th>
+          )}
+        </tr>
+      </thead>
+      <tbody>
+        {props.data.length > 0 ? (
+          props.data.map((data) => (
+            <tr key={data._id}>
+              <td>{data.emertimi}</td>
+
+              <td>
+                <button className="button muted-button">Edit</button>
+                <button className="button muted-button">Delete</button>
+              </td>
             </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </Wrapper>
+          ))
+        ) : (
+          <tr>
+            <td colSpan={3}>Nuk ka te dhena</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
   );
-}
+};
+
+export default Tabela;
