@@ -24,7 +24,7 @@ const Fakultetet2 = () => {
     displayAlert,
     loginUser,
     ListoFakultetet,
-    fakultetet,
+    // fakultetet,
     sendRequest,
   } = useAppContext();
 
@@ -34,39 +34,96 @@ const Fakultetet2 = () => {
   ];
   const [columns, setColumns] = useState(columnsData);
 
+  const [loading, setLoading] = useState(true);
+
   //console.log({ columns });
-  const [fakultetet2, setFakultetet2] = useState("");
+  const [fakultetet2, setFakultetet2] = useState();
   const shtoFakultet = (fakultet) => {
     setFakultetet2([...fakultetet2, fakultet]);
   };
 
+  const [formfakulteti, setformfakulteti] = useState("");
+
+  const getData = async () => {
+    try {
+      const { data } = await sendRequest(
+        "/fakulteti",
+        "GET",
+        {},
+        "GET_FAKULTETE"
+      );
+      setFakultetet2(data.fakultetet);
+      setLoading(false);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const shtoData = async () => {
+    try {
+      const bodytosend = { emertimi: `${formfakulteti}` };
+      const { data } = await sendRequest(
+        "/fakulteti",
+        "POST",
+        bodytosend,
+        "SHTO_FAKULTET"
+      );
+      console.log(data.status);
+      getData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    console.log("u thirr")
-    sendRequest("/fakulteti", "GET", {}, "GET_FAKULTETE");
-    //ListoFakultetet();
+    console.log("u thirr");
 
-    //shtoFakultet(fakultetet);
-
-    // eslint-disable-next-line
+    getData();
   }, []);
- // let [fak] = fakultetet.data;
-  console.log(fakultetet.length);
 
-  if (isLoading) {
-    return <Loading center />;
-  }
+  const handleChange = (e) => {
+    setformfakulteti(e.target.value);
+  };
+  const placeSubmitHandler = (event) => {
+    event.preventDefault();
 
-  /*  if (fakultetet.length === 0) {
-    return <h2>No jobs to display...</h2>;
-  } */
+    shtoData();
+  };
 
   return (
     <Wrapper>
       {showAlert && <Alert />}
-      <div>
-        <h2>Fakultetet</h2>
-       { fakultetet.length > 0 ? <Tabela kol={columns} data2={fakultetet} />: "S ka fakultete"}
-      </div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div>
+          <h2>Fakultetet</h2>
+          <div>
+            <form className="form" onSubmit={placeSubmitHandler}>
+              <FormRow
+                type="text"
+                name="fakulteti"
+                value={formfakulteti}
+                handleChange={handleChange}
+              />
+
+              <button
+                type="submit"
+                className="btn btn-block "
+                disabled={loading}
+              >
+                {loading ? "loading..." : "Ruaj"}
+              </button>
+            </form>
+          </div>
+          {fakultetet2 && fakultetet2.length > 0 ? (
+            <Tabela kol={columns} data2={fakultetet2} />
+          ) : (
+            "S ka fakultete"
+          )}
+        </div>
+      )}
     </Wrapper>
   );
 };
