@@ -135,7 +135,7 @@ const AppProvider = ({ children }) => {
         activeHttpRequests.current = activeHttpRequests.current.filter(
           (reqCtrl) => reqCtrl !== httpAbortCtrl
         ); */
-
+        clearAlert();
       return data;
     } catch (error) {
       if (error.response) {
@@ -150,8 +150,9 @@ const AppProvider = ({ children }) => {
           payload: { msg: "gabim ne server" },
         });
       }
+      clearAlert();
     }
-    clearAlert();
+    
   });
 
   const toggleSidebar = () => {

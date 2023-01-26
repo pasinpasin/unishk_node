@@ -54,7 +54,7 @@ const Fakultetet2 = () => {
       );
       setFakultetet2(data.fakultetet);
       setLoading(false);
-      console.log(data);
+      //console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -63,18 +63,36 @@ const Fakultetet2 = () => {
   const shtoData = async () => {
     try {
       const bodytosend = { emertimi: `${formfakulteti}` };
-      const { data } = await sendRequest(
+      //const { data } = await sendRequest(
+        const  data  = await sendRequest(
         "/fakulteti",
         "POST",
         bodytosend,
         "SHTO_FAKULTET"
       );
-      console.log(data.status);
+    
       getData();
     } catch (error) {
       console.log(error);
     }
   };
+
+  const fshijFakultet = async (id)=>{
+    try {
+      const  data  = await sendRequest(
+        `/fakulteti/${id}`,
+        "DELETE",
+        {},
+        "FSHIJ_FAKULTET"
+      );
+      
+    } catch (error) {
+      
+      console.log(error)
+    }
+    getData()
+  }
+
 
   useEffect(() => {
     console.log("u thirr");
@@ -118,7 +136,7 @@ const Fakultetet2 = () => {
             </form>
           </div>
           {fakultetet2 && fakultetet2.length > 0 ? (
-            <Tabela kol={columns} data2={fakultetet2} />
+            <Tabela kol={columns} data2={fakultetet2} fshij={fshijFakultet}  />
           ) : (
             "S ka fakultete"
           )}

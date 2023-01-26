@@ -6,6 +6,7 @@ const Tabela = (props) => {
   // console.log(props.data);
   let i = 0;
   return (
+    <Wrapper>
     <table>
       <thead>
         <tr>
@@ -36,8 +37,8 @@ const Tabela = (props) => {
               </td>
 
               <td data-label="Veprimet">
-                <button className="button muted-button">Edit</button>
-                <button className="button muted-button">Delete</button>
+                <button className="button " >Edit</button>
+                <button className="button " onClick={() => props.fshij(data._id)}>Delete</button>
               </td>
             </tr>
           ))
@@ -48,7 +49,7 @@ const Tabela = (props) => {
         )}
       </tbody>
     </table>
-  );
+    </Wrapper>);
 };
 
 export default Tabela;

@@ -14,6 +14,9 @@ import {
   SHTO_FAKULTET_BEGIN,
   SHTO_FAKULTET_SUCCESS,
   SHTO_FAKULTET_ERROR,
+  FSHIJ_FAKULTET_BEGIN,
+  FSHIJ_FAKULTET_SUCCESS,
+  FSHIJ_FAKULTET_ERROR,
 } from "./Actions";
 
 import { initialState } from "./appContext";
@@ -103,7 +106,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      showAlert: false,
+      showAlert: true,
       alertType: "success",
       alertText: "Fakulteti i shtua",
     };
@@ -117,6 +120,29 @@ const reducer = (state, action) => {
       alertText: action.payload.msg,
     };
   }
+
+  if (action.type === FSHIJ_FAKULTET_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+  if (action.type === FSHIJ_FAKULTET_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "Fakulteti u fshi",
+    };
+  }
+  if (action.type === FSHIJ_FAKULTET_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
 
   if (action.type === GET_CURRENT_USER_BEGIN) {
     return { ...state, userLoading: true, showAlert: false };
