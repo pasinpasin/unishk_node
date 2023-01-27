@@ -6,7 +6,8 @@ import Alert from "../components/Alert";
 import Wrapper from "../assets/wrappers/Tabela";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import FormRow from "../components/FormRow";
+import ShtoForm from "../components/ShtoForm";
+import ModifikoForm from "../components/ModifikoForm";
 import axios from "axios";
 import Tabela from "../components/Tabela";
 import { GrEdit } from "react-icons/gr";
@@ -33,16 +34,26 @@ const Fakultetet2 = () => {
     { field: "veprimet", header: "Veprimet" },
   ];
   const [columns, setColumns] = useState(columnsData);
-
+  const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  //console.log({ columns });
   const [fakultetet2, setFakultetet2] = useState();
+  const [formfakulteti, setformfakulteti] = useState("");
+  const initialFormState = { id: null, fakulteti: "" };
+  const [currentFakultet, setCurrentFakultet] = useState(initialFormState);
+
+  const editRow = (fakultetpermodifikim) => {
+    setCurrentFakultet({
+      id: fakultetpermodifikim._id,
+      fakulteti: fakultetpermodifikim.emertimi,
+    });
+    //setformfakulteti(fakultetpermodifikim.emertimi);
+    setEditing(true);
+  };
+  console.log(currentFakultet);
+
   const shtoFakultet = (fakultet) => {
     setFakultetet2([...fakultetet2, fakultet]);
   };
-
-  const [formfakulteti, setformfakulteti] = useState("");
 
   const getData = async () => {
     try {
@@ -64,35 +75,48 @@ const Fakultetet2 = () => {
     try {
       const bodytosend = { emertimi: `${formfakulteti}` };
       //const { data } = await sendRequest(
-        const  data  = await sendRequest(
+      const data = await sendRequest(
         "/fakulteti",
         "POST",
         bodytosend,
         "SHTO_FAKULTET"
       );
-    
+
       getData();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const fshijFakultet = async (id)=>{
+  const ModifikoData = async (id) => {
     try {
-      const  data  = await sendRequest(
+      const bodytosend = { emertimi: `${currentFakultet.fakulteti}` };
+      const data = await sendRequest(
+        `/fakulteti/${currentFakultet.id}`,
+        "PATCH",
+        bodytosend,
+        "PERDITESO_FAKULTET"
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    setEditing(false);
+    getData();
+  };
+
+  const fshijFakultet = async (id) => {
+    try {
+      const data = await sendRequest(
         `/fakulteti/${id}`,
         "DELETE",
         {},
         "FSHIJ_FAKULTET"
       );
-      
     } catch (error) {
-      
-      console.log(error)
+      console.log(error);
     }
-    getData()
-  }
-
+    getData();
+  };
 
   useEffect(() => {
     console.log("u thirr");
@@ -103,40 +127,63 @@ const Fakultetet2 = () => {
   const handleChange = (e) => {
     setformfakulteti(e.target.value);
   };
+
+  const handleChange2 = (e) => {
+    console.log(e);
+    setCurrentFakultet({
+      id: currentFakultet.id,
+      fakulteti: e.target.value,
+    });
+  };
+
   const placeSubmitHandler = (event) => {
     event.preventDefault();
 
     shtoData();
   };
 
+  const placeSubmitHandler2 = (event) => {
+    event.preventDefault();
+
+    ModifikoData();
+  };
+
   return (
     <Wrapper>
       {showAlert && <Alert />}
       {loading ? (
-        <Loading />
+        <Loading center />
       ) : (
         <div>
-          <h2>Fakultetet</h2>
-          <div>
-            <form className="form" onSubmit={placeSubmitHandler}>
-              <FormRow
-                type="text"
-                name="fakulteti"
-                value={formfakulteti}
+          {editing ? (
+            <>
+              <h2>Edit fakultet</h2>
+              <ModifikoForm
+                eventi={placeSubmitHandler2}
+                //editrow={editRow}
+                formvlera={currentFakultet.fakulteti}
+                handleChange={handleChange2}
+              />
+            </>
+          ) : (
+            <>
+              <h2>Shto Fakultetet</h2>
+              <ShtoForm
+                eventi={placeSubmitHandler}
+                formvlera={formfakulteti}
+                loading={loading}
                 handleChange={handleChange}
               />
+            </>
+          )}
 
-              <button
-                type="submit"
-                className="btn btn-block "
-                disabled={loading}
-              >
-                {loading ? "loading..." : "Ruaj"}
-              </button>
-            </form>
-          </div>
           {fakultetet2 && fakultetet2.length > 0 ? (
-            <Tabela kol={columns} data2={fakultetet2} fshij={fshijFakultet}  />
+            <Tabela
+              kol={columns}
+              data2={fakultetet2}
+              fshij={fshijFakultet}
+              modifiko={editRow}
+            />
           ) : (
             "S ka fakultete"
           )}

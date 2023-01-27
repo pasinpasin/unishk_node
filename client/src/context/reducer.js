@@ -17,12 +17,15 @@ import {
   FSHIJ_FAKULTET_BEGIN,
   FSHIJ_FAKULTET_SUCCESS,
   FSHIJ_FAKULTET_ERROR,
+  PERDITESO_FAKULTET_BEGIN,
+  PERDITESO_FAKULTET_SUCCESS,
+  PERDITESO_FAKULTET_ERROR,
 } from "./Actions";
 
 import { initialState } from "./appContext";
 
 const reducer = (state, action) => {
- // console.log(action.type);
+  // console.log(action.type);
   if (action.type === DISPLAY_ALERT) {
     return {
       ...state,
@@ -83,9 +86,9 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-       fakultetet: action.payload.data.data.fakultetet,
+      fakultetet: action.payload.data.data.fakultetet,
       //fakultetet: action.payload,
-     // fakultetet: action.payload.responseData.data,
+      // fakultetet: action.payload.responseData.data,
     };
   }
   if (action.type === GET_FAKULTETE_ERROR) {
@@ -143,6 +146,27 @@ const reducer = (state, action) => {
     };
   }
 
+  if (action.type === PERDITESO_FAKULTET_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+  if (action.type === PERDITESO_FAKULTET_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "Fakulteti u perditesua",
+    };
+  }
+  if (action.type === PERDITESO_FAKULTET_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
 
   if (action.type === GET_CURRENT_USER_BEGIN) {
     return { ...state, userLoading: true, showAlert: false };
