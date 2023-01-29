@@ -20,6 +20,19 @@ import {
   PERDITESO_FAKULTET_BEGIN,
   PERDITESO_FAKULTET_SUCCESS,
   PERDITESO_FAKULTET_ERROR,
+  GET_DEPARTAMENTE_BEGIN,
+  GET_DEPARTAMENTE_SUCCESS,
+  GET_DEPARTAMENTE_ERROR,
+
+  SHTO_DEPARTAMENT_BEGIN,
+  SHTO_DEPARTAMENT_SUCCESS,
+  SHTO_DEPARTAMENT_ERROR,
+  FSHIJ_DEPARTAMENT_BEGIN,
+  FSHIJ_DEPARTAMENT_SUCCESS,
+  FSHIJ_DEPARTAMENT_ERROR,
+  PERDITESO_DEPARTAMENT_BEGIN,
+  PERDITESO_DEPARTAMENT_SUCCESS,
+  PERDITESO_DEPARTAMENT_ERROR,
 } from "./Actions";
 
 import { initialState } from "./appContext";
@@ -78,6 +91,17 @@ const reducer = (state, action) => {
       userLoading: false,
     };
   }
+ if (action.type === GET_CURRENT_USER_BEGIN) {
+    return { ...state, userLoading: true, showAlert: false };
+  }
+  if (action.type === GET_CURRENT_USER_SUCCESS) {
+    return {
+      ...state,
+      userLoading: false,
+      user: action.payload.user,
+    };
+  }
+
   if (action.type === GET_FAKULTETE_BEGIN) {
     return { ...state, isLoading: true, showAlert: false };
   }
@@ -168,14 +192,99 @@ const reducer = (state, action) => {
     };
   }
 
-  if (action.type === GET_CURRENT_USER_BEGIN) {
-    return { ...state, userLoading: true, showAlert: false };
+
+
+
+
+
+
+  if (action.type === GET_DEPARTAMENTE_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
   }
-  if (action.type === GET_CURRENT_USER_SUCCESS) {
+  if (action.type === GET_DEPARTAMENTE_SUCCESS) {
+    console.log(action.payload.data.data.deparamentet);
     return {
       ...state,
-      userLoading: false,
-      user: action.payload.user,
+      isLoading: false,
+      deparamentet: action.payload.data.data.deparamentet,
+      //fakultetet: action.payload,
+      // fakultetet: action.payload.responseData.data,
+    };
+  }
+  if (action.type === GET_DEPARTAMENTE_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+      deparamentet: [],
+    };
+  }
+
+  if (action.type === SHTO_DEPARTAMENT_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+  if (action.type === SHTO_DEPARTAMENT_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "Departamenti i shtua",
+    };
+  }
+  if (action.type === SHTO_DEPARTAMENT_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
+  if (action.type === FSHIJ_DEPARTAMENT_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+  if (action.type === FSHIJ_DEPARTAMENT_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "Departamenti u fshi",
+    };
+  }
+  if (action.type === FSHIJ_DEPARTAMENT_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
+  if (action.type === PERDITESO_DEPARTAMENT_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+  if (action.type === PERDITESO_DEPARTAMENT_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "Departamenti u perditesua",
+    };
+  }
+  if (action.type === PERDITESO_DEPARTAMENT_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
     };
   }
 

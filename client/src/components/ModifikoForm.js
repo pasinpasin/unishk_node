@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import FormRow from "./FormRow";
 
 const ModifikoForm = (props) => {
-  const [user, setUser] = useState(props.currentFakultet);
+  
   return (
-    <form className="form" onSubmit={props.placeSubmitHandler}>
+    <form className="form" onSubmit={props.eventi}>
       <FormRow
         type="text"
         name="fakulteti"
@@ -14,6 +14,12 @@ const ModifikoForm = (props) => {
 
       <button type="submit" className="btn btn-block " disabled={props.loading}>
         {props.loading ? "loading..." : "Modifiko"}
+      </button>
+      <button 
+        onClick={() => props.setEditing(false)}
+        className="btn btn-block"
+      >
+       Anullo
       </button>
     </form>
   );

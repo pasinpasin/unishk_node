@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-const Wrapper = styled.modal`
+const Wrapper = styled.div`
+
+.modal
+{
   z-index: 100;
   position: fixed;
   top: 22vh;
@@ -8,8 +11,8 @@ const Wrapper = styled.modal`
   width: 80%;
   background: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 8px;
-
+  border-radius: 8px;}
+  
   .modal__header {
     width: 100%;
     padding: 1rem 0.5rem;

@@ -1,4 +1,5 @@
 const Departamenti = require("../models/departamentiModel");
+const APIFeatures=require("../utils/APIFeatures");
 //const moment=require("moment");
 
 exports.checkBody = (req, res, next) => {
@@ -11,11 +12,13 @@ exports.checkBody = (req, res, next) => {
     next();
   };
   exports.getAllDepartamenti = async (req, res) => {
+    
+    if (req.params.id )  filter= {fakulteti: req.params.id};
     try {
       // EXECUTE QUERY
       
         
-      const departamentet = await Departamenti.find();
+      const departamentet = await Departamenti.find(filter);
   
       // SEND RESPONSE
       res.status(200).json({

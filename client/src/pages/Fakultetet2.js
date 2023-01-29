@@ -13,6 +13,7 @@ import Tabela from "../components/Tabela";
 import { GrEdit } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
 
+
 const Fakultetet2 = () => {
   //const [values, setValues] = useState(initialState);
   //const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Fakultetet2 = () => {
     isLoading,
     showAlert,
     displayAlert,
+    alertType, alertText,
     loginUser,
     ListoFakultetet,
     // fakultetet,
@@ -42,6 +44,7 @@ const Fakultetet2 = () => {
   const [currentFakultet, setCurrentFakultet] = useState(initialFormState);
 
   const editRow = (fakultetpermodifikim) => {
+    setformfakulteti("")
     setCurrentFakultet({
       id: fakultetpermodifikim._id,
       fakulteti: fakultetpermodifikim.emertimi,
@@ -49,7 +52,7 @@ const Fakultetet2 = () => {
     //setformfakulteti(fakultetpermodifikim.emertimi);
     setEditing(true);
   };
-  console.log(currentFakultet);
+  //console.log(currentFakultet);
 
   const shtoFakultet = (fakultet) => {
     setFakultetet2([...fakultetet2, fakultet]);
@@ -81,16 +84,21 @@ const Fakultetet2 = () => {
         bodytosend,
         "SHTO_FAKULTET"
       );
-
-      getData();
+setformfakulteti("");
+if(data.status==="success")
+{
+      getData();}
     } catch (error) {
       console.log(error);
     }
   };
 
-  const ModifikoData = async (id) => {
+  const ModifikoData = async () => {
+   
     try {
       const bodytosend = { emertimi: `${currentFakultet.fakulteti}` };
+      
+      
       const data = await sendRequest(
         `/fakulteti/${currentFakultet.id}`,
         "PATCH",
@@ -150,7 +158,8 @@ const Fakultetet2 = () => {
 
   return (
     <Wrapper>
-      {showAlert && <Alert />}
+      
+      
       {loading ? (
         <Loading center />
       ) : (
@@ -158,8 +167,10 @@ const Fakultetet2 = () => {
           {editing ? (
             <>
               <h2>Edit fakultet</h2>
+              {showAlert && <Alert />}
               <ModifikoForm
                 eventi={placeSubmitHandler2}
+                setEditing={setEditing}
                 //editrow={editRow}
                 formvlera={currentFakultet.fakulteti}
                 handleChange={handleChange2}
@@ -167,12 +178,18 @@ const Fakultetet2 = () => {
             </>
           ) : (
             <>
+            
               <h2>Shto Fakultetet</h2>
+              {showAlert && <Alert />}
               <ShtoForm
+            
+             
                 eventi={placeSubmitHandler}
                 formvlera={formfakulteti}
                 loading={loading}
                 handleChange={handleChange}
+                
+                
               />
             </>
           )}

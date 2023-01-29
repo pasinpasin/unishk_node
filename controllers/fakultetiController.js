@@ -60,6 +60,7 @@ exports.createFakulteti = async (req, res) => {
 };
 
 exports.updateFakulteti = async (req, res) => {
+  console.log("update");
   try {
     const fakulteti = await Fakulteti.findByIdAndUpdate(
       req.params.id,

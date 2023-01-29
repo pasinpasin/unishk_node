@@ -215,6 +215,7 @@ ul {
   margin: 3rem auto;
   transition: var(--transition);
 }
+
 .form:hover {
   box-shadow: var(--shadow-4);
 }

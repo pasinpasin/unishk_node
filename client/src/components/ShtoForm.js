@@ -9,6 +9,7 @@ const ShtoForm = (props) => {
         name="fakulteti"
         value={props.formvlera}
         handleChange={props.handleChange}
+       
       />
 
       <button type="submit" className="btn btn-block " disabled={props.loading}>
