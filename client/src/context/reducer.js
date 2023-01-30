@@ -23,7 +23,6 @@ import {
   GET_DEPARTAMENTE_BEGIN,
   GET_DEPARTAMENTE_SUCCESS,
   GET_DEPARTAMENTE_ERROR,
-
   SHTO_DEPARTAMENT_BEGIN,
   SHTO_DEPARTAMENT_SUCCESS,
   SHTO_DEPARTAMENT_ERROR,
@@ -91,7 +90,7 @@ const reducer = (state, action) => {
       userLoading: false,
     };
   }
- if (action.type === GET_CURRENT_USER_BEGIN) {
+  if (action.type === GET_CURRENT_USER_BEGIN) {
     return { ...state, userLoading: true, showAlert: false };
   }
   if (action.type === GET_CURRENT_USER_SUCCESS) {
@@ -192,21 +191,14 @@ const reducer = (state, action) => {
     };
   }
 
-
-
-
-
-
-
   if (action.type === GET_DEPARTAMENTE_BEGIN) {
     return { ...state, isLoading: true, showAlert: false };
   }
   if (action.type === GET_DEPARTAMENTE_SUCCESS) {
-    console.log(action.payload.data.data.deparamentet);
     return {
       ...state,
       isLoading: false,
-      deparamentet: action.payload.data.data.deparamentet,
+      departamentet: action.payload.data.data.departamentet,
       //fakultetet: action.payload,
       // fakultetet: action.payload.responseData.data,
     };

@@ -1,4 +1,3 @@
-
 import { useAppContext } from "../context/appContext";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -13,7 +12,7 @@ import axios from "axios";
 import Tabela from "../components/Tabela";
 import { GrEdit } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
-
+import { useParams } from "react-router-dom";
 
 const Departamentet = () => {
   //const [values, setValues] = useState(initialState);
@@ -25,12 +24,15 @@ const Departamentet = () => {
     isLoading,
     showAlert,
     displayAlert,
-    alertType, alertText,
+    alertType,
+    alertText,
     loginUser,
     ListoDepartamentet,
     // departamentet,
     sendRequest,
   } = useAppContext();
+
+  const idf = useParams();
 
   const columnsData = [
     { field: "emertimi", header: "Departamenti" },
@@ -42,10 +44,11 @@ const Departamentet = () => {
   const [departamentet2, setDepartamentet2] = useState();
   const [formdepartamenti, setformdepartamenti] = useState("");
   const initialFormState = { id: null, departamenti: "" };
-  const [currentDepartament, setCurrentDepartament] = useState(initialFormState);
+  const [currentDepartament, setCurrentDepartament] =
+    useState(initialFormState);
 
   const editRow = (departamentpermodifikim) => {
-    setformdepartamenti("")
+    setformdepartamenti("");
     setCurrentDepartament({
       id: departamentpermodifikim._id,
       departamenti: departamentpermodifikim.emertimi,
@@ -72,12 +75,17 @@ const Departamentet = () => {
       //console.log(data);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
   const shtoData = async () => {
     try {
-      const bodytosend = { emertimi: `${formdepartamenti}` };
+      const bodytosend = {
+        emertimi: `${formdepartamenti}`,
+        fakulteti: `${idf.id}`,
+      };
+      console.log(bodytosend);
       //const { data } = await sendRequest(
       const data = await sendRequest(
         "/departamenti",
@@ -85,21 +93,19 @@ const Departamentet = () => {
         bodytosend,
         "SHTO_DEPARTAMENT"
       );
-setformdepartamenti("");
-if(data.status==="success")
-{
-      getData();}
+      setformdepartamenti("");
+      if (data.status === "success") {
+        getData();
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   const ModifikoData = async () => {
-   
     try {
       const bodytosend = { emertimi: `${currentDepartament.departamenti}` };
-      
-      
+
       const data = await sendRequest(
         `/departamenti/${currentDepartament.id}`,
         "PATCH",
@@ -156,11 +162,10 @@ if(data.status==="success")
 
     ModifikoData();
   };
+  let url = "/api/v1/departamenti/id/programi";
 
   return (
     <Wrapper>
-      
-      
       {loading ? (
         <Loading center />
       ) : (
@@ -172,6 +177,7 @@ if(data.status==="success")
               <ModifikoForm
                 eventi={placeSubmitHandler2}
                 setEditing={setEditing}
+                emri="Departamenti"
                 //editrow={editRow}
                 formvlera={currentDepartament.departamenti}
                 handleChange={handleChange2}
@@ -179,18 +185,14 @@ if(data.status==="success")
             </>
           ) : (
             <>
-            
               <h2>Shto Departamentet</h2>
               {showAlert && <Alert />}
               <ShtoForm
-            
-             
                 eventi={placeSubmitHandler}
                 formvlera={formdepartamenti}
                 loading={loading}
+                emri="Departamenti"
                 handleChange={handleChange}
-                
-                
               />
             </>
           )}
@@ -201,6 +203,7 @@ if(data.status==="success")
               data2={departamentet2}
               fshij={fshijDepartament}
               modifiko={editRow}
+              url={url}
             />
           ) : (
             "S ka departamente"

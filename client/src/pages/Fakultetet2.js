@@ -13,7 +13,6 @@ import Tabela from "../components/Tabela";
 import { GrEdit } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
 
-
 const Fakultetet2 = () => {
   //const [values, setValues] = useState(initialState);
   //const navigate = useNavigate();
@@ -24,7 +23,8 @@ const Fakultetet2 = () => {
     isLoading,
     showAlert,
     displayAlert,
-    alertType, alertText,
+    alertType,
+    alertText,
     loginUser,
     ListoFakultetet,
     // fakultetet,
@@ -44,7 +44,7 @@ const Fakultetet2 = () => {
   const [currentFakultet, setCurrentFakultet] = useState(initialFormState);
 
   const editRow = (fakultetpermodifikim) => {
-    setformfakulteti("")
+    setformfakulteti("");
     setCurrentFakultet({
       id: fakultetpermodifikim._id,
       fakulteti: fakultetpermodifikim.emertimi,
@@ -84,21 +84,19 @@ const Fakultetet2 = () => {
         bodytosend,
         "SHTO_FAKULTET"
       );
-setformfakulteti("");
-if(data.status==="success")
-{
-      getData();}
+      setformfakulteti("");
+      if (data.status === "success") {
+        getData();
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   const ModifikoData = async () => {
-   
     try {
       const bodytosend = { emertimi: `${currentFakultet.fakulteti}` };
-      
-      
+
       const data = await sendRequest(
         `/fakulteti/${currentFakultet.id}`,
         "PATCH",
@@ -155,11 +153,10 @@ if(data.status==="success")
 
     ModifikoData();
   };
+  let url = "/api/v1/fakulteti/id/departamenti";
 
   return (
     <Wrapper>
-      
-      
       {loading ? (
         <Loading center />
       ) : (
@@ -178,18 +175,13 @@ if(data.status==="success")
             </>
           ) : (
             <>
-            
               <h2>Shto Fakultetet</h2>
               {showAlert && <Alert />}
               <ShtoForm
-            
-             
                 eventi={placeSubmitHandler}
                 formvlera={formfakulteti}
                 loading={loading}
                 handleChange={handleChange}
-                
-                
               />
             </>
           )}
@@ -200,6 +192,7 @@ if(data.status==="success")
               data2={fakultetet2}
               fshij={fshijFakultet}
               modifiko={editRow}
+              url={url}
             />
           ) : (
             "S ka fakultete"

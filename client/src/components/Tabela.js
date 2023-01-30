@@ -6,7 +6,6 @@ const Tabela = (props) => {
   // console.log(props.data);
   let i = 0;
   return (
-  
     <Wrapper>
       <table>
         <thead>
@@ -25,11 +24,16 @@ const Tabela = (props) => {
             props.data2.map((data) => (
               <tr key={data._id}>
                 <td data-label={props.kol[0].header}>
-                  
-                <Link 
-                    to=`/fakulteti/${data._id}/departamenti` />
+                  <NavLink
+                    to={props.url.replace("id", data._id)}
+                    onClick={props.functioncall}
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active" : "nav-link"
+                    }
+                    end
+                  >
                     {data.emertimi}
-                  
+                  </NavLink>
                 </td>
 
                 <td data-label="Veprimet">

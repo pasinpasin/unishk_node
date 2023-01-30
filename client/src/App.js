@@ -21,11 +21,11 @@ function App() {
               </ProtectedRoute>
             }
           />
-    <Route path="/fakulteti/:id/deparartamenti" element={<Departamentet />}>
-       
+
           <Route path="programet" element={<Programet />} />
           <Route path="pedagoget" element={<Pedagoget />} />
         </Route>
+        <Route path="departamentet" element={<Departamentet />} />
         <Route path="/login" element={<Login />} />
         <Route path="/krijofakultet" element={<ShtoFakultet />} />
       </Routes>
