@@ -19,6 +19,7 @@ const Dashboard = () => {
   }, []); */
 
   return (
+    
     <Wrapper>
       <main className="dashboard">
         <SmallSidebar />

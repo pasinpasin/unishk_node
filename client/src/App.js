@@ -24,8 +24,9 @@ function App() {
 
           <Route path="programet" element={<Programet />} />
           <Route path="pedagoget" element={<Pedagoget />} />
+          <Route path="fakulteti/:id/departamenti" element={<Departamentet />} />
         </Route>
-        <Route path="departamentet" element={<Departamentet />} />
+        
         <Route path="/login" element={<Login />} />
         <Route path="/krijofakultet" element={<ShtoFakultet />} />
       </Routes>

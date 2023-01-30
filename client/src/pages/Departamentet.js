@@ -13,6 +13,7 @@ import Tabela from "../components/Tabela";
 import { GrEdit } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
 import { useParams } from "react-router-dom";
+import Dashboard from "./Dashboard";
 
 const Departamentet = () => {
   //const [values, setValues] = useState(initialState);
@@ -65,7 +66,7 @@ const Departamentet = () => {
   const getData = async () => {
     try {
       const { data } = await sendRequest(
-        "/departamenti",
+        `fakulteti/${idf.id}/departamenti`,
         "GET",
         {},
         "GET_DEPARTAMENTE"
@@ -165,6 +166,7 @@ const Departamentet = () => {
   let url = "/api/v1/departamenti/id/programi";
 
   return (
+    
     <Wrapper>
       {loading ? (
         <Loading center />

@@ -153,7 +153,7 @@ const Fakultetet2 = () => {
 
     ModifikoData();
   };
-  let url = "/api/v1/fakulteti/id/departamenti";
+  let url = "/fakulteti/id/departamenti";
 
   return (
     <Wrapper>

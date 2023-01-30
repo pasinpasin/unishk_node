@@ -32,6 +32,19 @@ import {
   PERDITESO_DEPARTAMENT_BEGIN,
   PERDITESO_DEPARTAMENT_SUCCESS,
   PERDITESO_DEPARTAMENT_ERROR,
+
+  GET_PROGRAME_BEGIN,
+  GET_PROGRAME_SUCCESS,
+  GET_PROGRAME_ERROR,
+  SHTO_PROGRAM_BEGIN,
+  SHTO_PROGRAM_SUCCESS,
+  SHTO_PROGRAM_ERROR,
+  FSHIJ_PROGRAM_BEGIN,
+  FSHIJ_PROGRAM_SUCCESS,
+  FSHIJ_PROGRAM_ERROR,
+  PERDITESO_PROGRAM_BEGIN,
+  PERDITESO_PROGRAM_SUCCESS,
+  PERDITESO_PROGRAM_ERROR,
 } from "./Actions";
 
 import { initialState } from "./appContext";
@@ -271,6 +284,96 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === PERDITESO_DEPARTAMENT_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
+
+  if (action.type === GET_PROGRAME_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+  if (action.type === GET_PROGRAME_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      programet: action.payload.data.data.programi,
+      //fakultetet: action.payload,
+      // fakultetet: action.payload.responseData.data,
+    };
+  }
+  if (action.type === GET_PROGRAME_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+      programet: [],
+    };
+  }
+
+  if (action.type === SHTO_PROGRAM_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+  if (action.type === SHTO_PROGRAM_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "programi u shtua",
+    };
+  }
+  if (action.type === SHTO_PROGRAM_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
+  if (action.type === FSHIJ_PROGRAM_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+  if (action.type === FSHIJ_PROGRAM_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "programi u fshi",
+    };
+  }
+  if (action.type === FSHIJ_PROGRAM_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
+  if (action.type === PERDITESO_PROGRAM_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+  if (action.type === PERDITESO_PROGRAM_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "programi u perditesua",
+    };
+  }
+  if (action.type === PERDITESO_PROGRAM_ERROR) {
     return {
       ...state,
       isLoading: false,
