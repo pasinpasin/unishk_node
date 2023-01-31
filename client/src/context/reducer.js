@@ -11,6 +11,7 @@ import {
   GET_FAKULTETE_ERROR,
   GET_CURRENT_USER_BEGIN,
   GET_CURRENT_USER_SUCCESS,
+  GET_CURRENT_USER_ERROR,
   SHTO_FAKULTET_BEGIN,
   SHTO_FAKULTET_SUCCESS,
   SHTO_FAKULTET_ERROR,
@@ -32,7 +33,6 @@ import {
   PERDITESO_DEPARTAMENT_BEGIN,
   PERDITESO_DEPARTAMENT_SUCCESS,
   PERDITESO_DEPARTAMENT_ERROR,
-
   GET_PROGRAME_BEGIN,
   GET_PROGRAME_SUCCESS,
   GET_PROGRAME_ERROR,
@@ -111,6 +111,17 @@ const reducer = (state, action) => {
       ...state,
       userLoading: false,
       user: action.payload.user,
+    };
+  }
+
+  if (action.type === GET_CURRENT_USER_ERROR) {
+    return {
+      ...state,
+      userLoading: false,
+      user: null,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
     };
   }
 
@@ -292,7 +303,6 @@ const reducer = (state, action) => {
       alertText: action.payload.msg,
     };
   }
-
 
   if (action.type === GET_PROGRAME_BEGIN) {
     return { ...state, isLoading: true, showAlert: false };

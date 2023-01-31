@@ -45,8 +45,7 @@ const Programet = () => {
   const [programet2, setProgramet2] = useState();
   const [formprogrami, setformprogrami] = useState("");
   const initialFormState = { id: null, programi: "" };
-  const [currentProgram, setCurrentProgram] =
-    useState(initialFormState);
+  const [currentProgram, setCurrentProgram] = useState(initialFormState);
 
   const editRow = (programpermodifikim) => {
     setformprogrami("");
@@ -66,7 +65,7 @@ const Programet = () => {
   const getData = async () => {
     try {
       const { data } = await sendRequest(
-        `fakulteti/${idf.id}/programi`,
+        `departamenti/${idf.id}/programi`,
         "GET",
         {},
         "GET_PROGRAME"
@@ -135,7 +134,7 @@ const Programet = () => {
   };
 
   useEffect(() => {
-    console.log("u thirr");
+    console.log("u thirr programet");
 
     getData();
   }, []);
@@ -163,10 +162,9 @@ const Programet = () => {
 
     ModifikoData();
   };
-  let url = "/api/v1/programi/id/programi";
+  let url = "/departamenti/id/programi";
 
   return (
-    
     <Wrapper>
       {loading ? (
         <Loading center />

@@ -47,6 +47,8 @@ const Departamentet = () => {
   const initialFormState = { id: null, departamenti: "" };
   const [currentDepartament, setCurrentDepartament] =
     useState(initialFormState);
+  const [fakultetiperket, setfakultetiperket] = useState("");
+  console.log(fakultetiperket);
 
   const editRow = (departamentpermodifikim) => {
     setformdepartamenti("");
@@ -71,6 +73,7 @@ const Departamentet = () => {
         {},
         "GET_DEPARTAMENTE"
       );
+      setfakultetiperket(`${idf.id}`);
       setDepartamentet2(data.departamentet);
       setLoading(false);
       //console.log(data);
@@ -84,7 +87,7 @@ const Departamentet = () => {
     try {
       const bodytosend = {
         emertimi: `${formdepartamenti}`,
-        fakulteti: `${idf.id}`,
+        fakulteti: `${fakultetiperket}`,
       };
       console.log(bodytosend);
       //const { data } = await sendRequest(
@@ -135,7 +138,7 @@ const Departamentet = () => {
   };
 
   useEffect(() => {
-    console.log("u thirr");
+    console.log("u thirr depi");
 
     getData();
   }, []);
@@ -163,10 +166,9 @@ const Departamentet = () => {
 
     ModifikoData();
   };
-  let url = "/api/v1/departamenti/id/programi";
+  let url = "/departamenti/id/programi";
 
   return (
-    
     <Wrapper>
       {loading ? (
         <Loading center />

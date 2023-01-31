@@ -22,6 +22,7 @@ import {
   GET_FAKULTETE_ERROR,
   GET_CURRENT_USER_BEGIN,
   GET_CURRENT_USER_SUCCESS,
+  GET_CURRENT_USER_ERROR,
   SHTO_FAKULTET_BEGIN,
   SHTO_FAKULTET_SUCCESS,
   SHTO_FAKULTET_ERROR,
@@ -102,8 +103,15 @@ const AppProvider = ({ children }) => {
           type: LOGIN_USER_ERROR,
           payload: { msg: error.response.data.message },
         });
+      } else {
+        console.log(error);
+        dispatch({
+          type: LOGIN_USER_ERROR,
+          payload: { msg: "Gabim ne lidhjen me serverin" },
+        });
       }
     }
+
     clearAlert();
   };
 
@@ -135,7 +143,7 @@ const AppProvider = ({ children }) => {
         activeHttpRequests.current = activeHttpRequests.current.filter(
           (reqCtrl) => reqCtrl !== httpAbortCtrl
         ); */
-        clearAlert();
+      clearAlert();
       return data;
     } catch (error) {
       if (error.response) {
@@ -152,7 +160,6 @@ const AppProvider = ({ children }) => {
       }
       clearAlert();
     }
-    
   });
 
   const toggleSidebar = () => {
@@ -189,6 +196,8 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const getMainData = async () => {};
+
   const getCurrentUser = async () => {
     dispatch({ type: GET_CURRENT_USER_BEGIN });
     try {
@@ -202,9 +211,16 @@ const AppProvider = ({ children }) => {
         payload: { user },
       });
     } catch (error) {
-      if (error.response.status === 401)
-        //return;
+      if (error.response && error.response.status === 401) {
         logoutUser();
+      } else {
+        console.log(error);
+        dispatch({
+          type: GET_CURRENT_USER_ERROR,
+          payload: { msg: "gabim ne server" },
+        });
+      }
+      clearAlert();
     }
   };
   useEffect(() => {
