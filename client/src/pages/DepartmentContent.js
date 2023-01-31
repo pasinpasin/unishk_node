@@ -41,8 +41,25 @@ const DepartamentContent = () => {
   useEffect(() => {
     console.log("u thirr bashke");
 
-    //getData();
+    getFakultet();
   }, []);
+
+  const getFakultet = async () => {
+    try {
+      const { data } = await sendRequest(
+        `departamenti/${idf.id}/`,
+        "GET",
+        {},
+        "GET_FAKULTET_FROM_DEP"
+      );
+      //setProgramet2(data.programet);
+      //setLoading(false);
+      //console.log(data);
+    } catch (error) {
+      console.log(error);
+      //setLoading(false);
+    }
+  };
 
   let url = "/departamenti/id/programi";
 
