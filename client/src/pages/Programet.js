@@ -15,7 +15,7 @@ import { MdDelete } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import Dashboard from "./Dashboard";
 
-const Programet = () => {
+const Programet = (props) => {
   //const [values, setValues] = useState(initialState);
   //const navigate = useNavigate();
 
@@ -83,7 +83,8 @@ const Programet = () => {
     try {
       const bodytosend = {
         emertimi: `${formprogrami}`,
-        fakulteti: `${idf.id}`,
+        fakulteti: `${props.fid}`,
+        departamenti: `${idf.id}`,
       };
       console.log(bodytosend);
       //const { data } = await sendRequest(

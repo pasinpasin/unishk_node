@@ -45,6 +45,10 @@ import {
   PERDITESO_PROGRAM_BEGIN,
   PERDITESO_PROGRAM_SUCCESS,
   PERDITESO_PROGRAM_ERROR,
+  GET_PEDAGOG_BEGIN,
+  GET_PEDAGOG_SUCCESS,
+  GET_PEDAGOG_ERROR,
+  VALIDO_INPUT,
 } from "./Actions";
 
 import { initialState } from "./appContext";
@@ -390,6 +394,47 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
+    };
+  }
+
+  if (action.type === GET_PEDAGOG_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+  if (action.type === GET_PEDAGOG_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: false,
+      alertType: "success",
+      alertText: "PEDAGOGU u perditesua",
+    };
+  }
+  if (action.type === GET_PEDAGOG_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
+  if (action.type === VALIDO_INPUT) {
+    let formIsValid = true;
+    for (const inputId in state.inputs) {
+      if (inputId === action.inputId) {
+        formIsValid = formIsValid && action.isValid;
+      } else {
+        formIsValid = formIsValid && state.inputs[inputId].isValid;
+      }
+    }
+    return {
+      ...state,
+      inputs: {
+        ...state.inputs,
+        [action.inputId]: { value: action.value, isValid: action.isValid },
+      },
+      isValidFormFinal: formIsValid,
     };
   }
 

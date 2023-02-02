@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import reducer from "./reducer";
 import axios from "axios";
+import { validate } from "../utils/validator";
 
 import {
   DISPLAY_ALERT,
@@ -26,6 +27,11 @@ import {
   SHTO_FAKULTET_BEGIN,
   SHTO_FAKULTET_SUCCESS,
   SHTO_FAKULTET_ERROR,
+  GET_PEDAGOG_BEGIN,
+  GET_PEDAGOG_SUCCESS,
+  GET_PEDAGOG_ERROR,
+  VALIDO_INPUT,
+  TOUCH_INPUT,
 } from "./Actions";
 
 const initialState = {
@@ -40,6 +46,8 @@ const initialState = {
   userLocation: "",
   showSidebar: true,
   fakultetet: [],
+  isValidFormFinal: false,
+  inputs: { inputID: { vlera: "", isValid: false } },
 };
 
 const AppContext = React.createContext();
@@ -196,8 +204,6 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const getMainData = async () => {};
-
   const getCurrentUser = async () => {
     dispatch({ type: GET_CURRENT_USER_BEGIN });
     try {
@@ -223,6 +229,16 @@ const AppProvider = ({ children }) => {
       clearAlert();
     }
   };
+
+  const inputHandler = useCallback((id, value, isValid) => {
+    dispatch({
+      type: VALIDO_INPUT,
+      value: value,
+      isValid: isValid,
+      inputId: id,
+    });
+  }, []);
+
   useEffect(() => {
     getCurrentUser();
   }, []);

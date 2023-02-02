@@ -37,6 +37,8 @@ const DepartamentContent = () => {
   } = useAppContext();
 
   const idf = useParams();
+  const [fakultetet, setFakultetet] = useState(null);
+  const [loadingf, setLoadingf] = useState(true);
 
   useEffect(() => {
     console.log("u thirr bashke");
@@ -50,14 +52,14 @@ const DepartamentContent = () => {
         `departamenti/${idf.id}/`,
         "GET",
         {},
-        "GET_FAKULTET_FROM_DEP"
+        "GET_FAKULTETE"
       );
-      //setProgramet2(data.programet);
-      //setLoading(false);
-      //console.log(data);
+      setFakultetet(data.fakulteti);
+      setLoadingf(false);
+      console.log(data.fakulteti);
     } catch (error) {
       console.log(error);
-      //setLoading(false);
+      setLoadingf(false);
     }
   };
 
@@ -76,26 +78,34 @@ const DepartamentContent = () => {
 
   return (
     <Wrapper>
-      <div className="Tabs">
-        <ul className="nav">
-          <li
-            className={activeTab === "tab1" ? "active" : ""}
-            onClick={handleTab1}
-          >
-            Programet
-          </li>
-          <li
-            className={activeTab === "tab2" ? "active" : ""}
-            onClick={handleTab2}
-          >
-            Pedagoget
-          </li>
-        </ul>
+      {loadingf ? (
+        <div></div>
+      ) : (
+        <div className="Tabs">
+          <ul className="nav">
+            <li
+              className={activeTab === "tab1" ? "active" : ""}
+              onClick={handleTab1}
+            >
+              Programet
+            </li>
+            <li
+              className={activeTab === "tab2" ? "active" : ""}
+              onClick={handleTab2}
+            >
+              Pedagoget
+            </li>
+          </ul>
 
-        <div className="outlet">
-          {activeTab === "tab1" ? <Programet /> : <Pedagoget />}
+          <div className="outlet">
+            {activeTab === "tab1" ? (
+              <Programet fid={fakultetet} />
+            ) : (
+              <Pedagoget fid={fakultetet} />
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </Wrapper>
   );
 };
