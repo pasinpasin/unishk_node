@@ -13,8 +13,53 @@ import Tabela from "../components/Tabela";
 import { GrEdit } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
 import { VALIDATOR_REQUIRE } from "../utils/validator";
+
 import FormRow2 from "../components/FormRow2";
 import React, { useReducer, useCallback } from "react";
+import { validate } from "../utils/validator";
+const inputReducer = (state, action) => {
+  switch (action.type) {
+    case "CHANGE":
+      return {
+        ...state,
+        value: action.val,
+        isValid: validate(action.val, action.validators),
+      };
+    case "TOUCH": {
+      return {
+        ...state,
+        isTouched: true,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+const formReducer = (state, action) => {
+  switch (action.type) {
+    case "INPUT_CHANGE":
+      let formIsValid = true;
+      for (const inputId in state.inputs) {
+        if (inputId === action.inputId) {
+          formIsValid = formIsValid && action.isValid;
+        } else {
+          formIsValid = formIsValid && state.inputs[inputId].isValid;
+        }
+      }
+      console.log(state);
+      return {
+        ...state,
+        inputs: {
+          ...state.inputs,
+          [action.inputId]: { value: action.value, isValid: action.isValid },
+        },
+        isValid: formIsValid,
+      };
+    default:
+      return state;
+  }
+};
 
 const Fakultetet3 = () => {
   //const [values, setValues] = useState(initialState);
@@ -33,25 +78,21 @@ const Fakultetet3 = () => {
     // fakultetet,
     sendRequest,
   } = useAppContext();
-  const formReducer = (state, action) => {
+
+  const inputReducer = (state, action) => {
     switch (action.type) {
-      case "INPUT_CHANGE":
-        let formIsValid = true;
-        for (const inputId in state.inputs) {
-          if (inputId === action.inputId) {
-            formIsValid = formIsValid && action.isValid;
-          } else {
-            formIsValid = formIsValid && state.inputs[inputId].isValid;
-          }
-        }
+      case "CHANGE":
         return {
           ...state,
-          inputs: {
-            ...state.inputs,
-            [action.inputId]: { value: action.value, isValid: action.isValid },
-          },
-          isValid: formIsValid,
+          value: action.val,
+          isValid: validate(action.val, action.validators),
         };
+      case "TOUCH": {
+        return {
+          ...state,
+          isTouched: true,
+        };
+      }
       default:
         return state;
     }
@@ -167,11 +208,6 @@ const Fakultetet3 = () => {
       fakulteti: e.target.value,
     });
   };
-  const handleBlur = (e) => {
-    console.log(e.target);
-    inputHandler();
-    console.log(formState);
-  };
 
   const placeSubmitHandler = (event) => {
     event.preventDefault();
@@ -186,7 +222,7 @@ const Fakultetet3 = () => {
   };
   let url = "/fakulteti/id/departamenti";
 
-  const [formState, dispatch] = useReducer(formReducer, {
+  const [formState, dispatchfrm] = useReducer(formReducer, {
     inputs: {
       fakulteti: {
         value: "",
@@ -196,15 +232,35 @@ const Fakultetet3 = () => {
     isValid: false,
   });
 
-  const inputHandler = useCallback((id, value, isValid) => {
-    dispatch({
-      type: "INPUT_CHANGE",
-      value: value,
-      isValid: isValid,
-      inputId: id,
-    });
+  const [inputState, dispatch] = useReducer(inputReducer, {
+    value: "",
+    isTouched: false,
+    isValid: false,
+  });
+
+  const changeHandler = (event) => {
+    // console.log(event.target.dataset.validators);
     console.log(formState);
-  }, []);
+    setformfakulteti(event.target.value);
+    dispatch({
+      type: "CHANGE",
+      val: event.target.value,
+      validators: event.target.dataset.validators,
+    });
+  };
+
+  const touchHandler = (event) => {
+    dispatch({
+      type: "TOUCH",
+    });
+    console.log(event.target.name);
+    dispatchfrm({
+      type: "INPUT_CHANGE",
+      value: event.target.value,
+      isValid: inputState.isValid,
+      inputId: event.target.name,
+    });
+  };
 
   return (
     <Wrapper>
@@ -233,17 +289,16 @@ const Fakultetet3 = () => {
                   type="text"
                   name="fakulteti"
                   id="fakulteti"
-                  value={formfakulteti}
-                  handleChange={handleChange}
-                  handleBlur={inputHandler}
+                  errorText="Please enter a valid title."
+                  changeHandler={changeHandler}
+                  touchHandler={touchHandler}
                   validators={[VALIDATOR_REQUIRE()]}
-                  error="fushe e detyrueshme"
                 />
 
                 <button
                   type="submit"
-                  className="btn btn-block "
                   disabled={!formState.isValid}
+                  className="btn btn-block "
                 >
                   Ruaj
                 </button>

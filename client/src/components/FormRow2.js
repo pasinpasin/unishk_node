@@ -1,30 +1,42 @@
-function FormRow2({
-  type,
-  name,
-  value,
-  handleChange,
-  labelText,
-  handleBlur,
-  validators,
-  error,
-}) {
+import React, { useReducer, useCallback, useEffect } from "react";
+import { validate } from "../utils/validator";
+
+const inputReducer = (state, action) => {
+  switch (action.type) {
+    case "CHANGE":
+      return {
+        ...state,
+        value: action.val,
+        isValid: validate(action.val, action.validators),
+      };
+    case "TOUCH": {
+      return {
+        ...state,
+        isTouched: true,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+const FormRow2 = (props) => {
   return (
     <div className="form-row">
-      <label htmlFor={name} className="form-label">
-        {labelText || name}
+      <label htmlFor={props.name} className="form-label">
+        {props.labelText || props.name}
       </label>
       <input
-        type={type}
-        value={value}
-        name={name}
-        onChange={handleChange}
-        onBlur={handleBlur}
+        type={props.type}
+        value={props.value}
+        name={props.name}
+        onChange={props.changeHandler}
+        onBlur={props.touchHandler}
         className="form-input"
-        validators={validators}
-        errortext={error}
+        data-validators={props.validators}
       />
     </div>
   );
-}
+};
 
 export default FormRow2;
