@@ -12,6 +12,7 @@ export const VALIDATOR_MINLENGTH = val => ({
   type: VALIDATOR_TYPE_MINLENGTH,
   val: val
 });
+
 export const VALIDATOR_MAXLENGTH = val => ({
   type: VALIDATOR_TYPE_MAXLENGTH,
   val: val
@@ -21,9 +22,12 @@ export const VALIDATOR_MAX = val => ({ type: VALIDATOR_TYPE_MAX, val: val });
 export const VALIDATOR_EMAIL = () => ({ type: VALIDATOR_TYPE_EMAIL });
 
 export const validate = (value, validators) => {
+  console.log(VALIDATOR_MINLENGTH().type)
   let isValid = true;
   for (const validator of validators) {
+    console.log(validator.type)
     if (validator.type === VALIDATOR_TYPE_REQUIRE) {
+      
       isValid = isValid && value.trim().length > 0;
     }
     if (validator.type === VALIDATOR_TYPE_MINLENGTH) {

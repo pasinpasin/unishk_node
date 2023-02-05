@@ -59,7 +59,7 @@ exports.signIn = catchAsync(async (req, res, next) => {
   }
   const user = await User.findOne({ email });
 
-  if (!user || (await user.correctPassword(password, user.password))) {
+  if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError("Incorrect email or password", 401));
   }
   createSendToken(user, 200, res);
@@ -143,17 +143,17 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
 
       // THERE IS A LOGGED IN USER
       //res.locals.user = currentUser;
-      //req.user = currentUser;
+      req.user = currentUser;
      
-     res.status(201).json({
+    /*  res.status(201).json({
         status: "success",
         //token,
         data: {
           user: currentUser,
         },
-      });  
+      }); */  
 
-      return next();
+      next();
     } catch (err) {
       return next(new AppError("Not logged in.", 401));
     }

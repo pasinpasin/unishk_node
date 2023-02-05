@@ -17,26 +17,36 @@ import { VALIDATOR_REQUIRE } from "../utils/validator";
 import FormRow2 from "../components/FormRow2";
 import React, { useReducer, useCallback } from "react";
 import { validate } from "../utils/validator";
+
 const inputReducer = (state, action) => {
+ 
   switch (action.type) {
     case "CHANGE":
+     
+      console.log(Object.entries(action.validators))
+
+
       return {
         ...state,
         value: action.val,
-        isValid: validate(action.val, action.validators),
+        isValid: validate(action.val, [action.validators]),
       };
     case "TOUCH": {
+     // console.log(state.isValid)
       return {
         ...state,
         isTouched: true,
       };
+      
     }
     default:
       return state;
   }
+  
 };
 
 const formReducer = (state, action) => {
+  console.log("form");
   switch (action.type) {
     case "INPUT_CHANGE":
       let formIsValid = true;
@@ -47,7 +57,7 @@ const formReducer = (state, action) => {
           formIsValid = formIsValid && state.inputs[inputId].isValid;
         }
       }
-      console.log(state);
+      
       return {
         ...state,
         inputs: {
@@ -79,24 +89,7 @@ const Fakultetet3 = () => {
     sendRequest,
   } = useAppContext();
 
-  const inputReducer = (state, action) => {
-    switch (action.type) {
-      case "CHANGE":
-        return {
-          ...state,
-          value: action.val,
-          isValid: validate(action.val, action.validators),
-        };
-      case "TOUCH": {
-        return {
-          ...state,
-          isTouched: true,
-        };
-      }
-      default:
-        return state;
-    }
-  };
+
 
   const columnsData = [
     { field: "emertimi", header: "Fakulteti" },
@@ -240,20 +233,23 @@ const Fakultetet3 = () => {
 
   const changeHandler = (event) => {
     // console.log(event.target.dataset.validators);
-    console.log(formState);
+   
     setformfakulteti(event.target.value);
+    console.log(event.target.getAttribute('data-validators'))
     dispatch({
       type: "CHANGE",
       val: event.target.value,
       validators: event.target.dataset.validators,
     });
+   // console.log(inputState.isValid);
   };
 
   const touchHandler = (event) => {
     dispatch({
       type: "TOUCH",
     });
-    console.log(event.target.name);
+  
+  
     dispatchfrm({
       type: "INPUT_CHANGE",
       value: event.target.value,
@@ -261,6 +257,8 @@ const Fakultetet3 = () => {
       inputId: event.target.name,
     });
   };
+
+
 
   return (
     <Wrapper>
@@ -292,7 +290,7 @@ const Fakultetet3 = () => {
                   errorText="Please enter a valid title."
                   changeHandler={changeHandler}
                   touchHandler={touchHandler}
-                  validators={[VALIDATOR_REQUIRE()]}
+                  validators={[VALIDATOR_REQUIRE]} 
                 />
 
                 <button

@@ -21,7 +21,8 @@ router.use("/:id/departamenti", departamentiRouter);
 router
   .route("/")
   .get(
-   checkMiddleware.isAuthenticated,
+   ////checkMiddleware.isAuthenticated,
+    authController.protect,
     //authController.restrictTo("admin", "pedagog"),
     fakultetiController.getAllFakulteti
   )

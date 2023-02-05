@@ -207,6 +207,7 @@ const AppProvider = ({ children }) => {
   const getCurrentUser = async () => {
     dispatch({ type: GET_CURRENT_USER_BEGIN });
     try {
+      //const { data } = await authFetch("/auth/getCurrentUser");
       const { data } = await authFetch("/auth/getCurrentUser");
 
       const { user } = data.data;

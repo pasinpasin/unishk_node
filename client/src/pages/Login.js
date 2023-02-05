@@ -30,7 +30,7 @@ const Login = () => {
     e.preventDefault();
     const { email, password, isMember } = values;
     if (!email || !password) {
-      console.log("je ketu");
+      //console.log("je ketu");
       displayAlert();
       return;
     }
