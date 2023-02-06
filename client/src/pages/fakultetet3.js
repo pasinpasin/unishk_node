@@ -19,12 +19,9 @@ import React, { useReducer, useCallback } from "react";
 import { validate } from "../utils/validator";
 
 const inputReducer = (state, action) => {
- 
   switch (action.type) {
     case "CHANGE":
-     
-      console.log(Object.entries(action.validators))
-
+      console.log([action.validators]);
 
       return {
         ...state,
@@ -32,17 +29,15 @@ const inputReducer = (state, action) => {
         isValid: validate(action.val, [action.validators]),
       };
     case "TOUCH": {
-     // console.log(state.isValid)
+      // console.log(state.isValid)
       return {
         ...state,
         isTouched: true,
       };
-      
     }
     default:
       return state;
   }
-  
 };
 
 const formReducer = (state, action) => {
@@ -57,7 +52,7 @@ const formReducer = (state, action) => {
           formIsValid = formIsValid && state.inputs[inputId].isValid;
         }
       }
-      
+
       return {
         ...state,
         inputs: {
@@ -88,8 +83,6 @@ const Fakultetet3 = () => {
     // fakultetet,
     sendRequest,
   } = useAppContext();
-
-
 
   const columnsData = [
     { field: "emertimi", header: "Fakulteti" },
@@ -233,23 +226,22 @@ const Fakultetet3 = () => {
 
   const changeHandler = (event) => {
     // console.log(event.target.dataset.validators);
-   
+
     setformfakulteti(event.target.value);
-    console.log(event.target.getAttribute('data-validators'))
+    console.log(event.target.getAttribute("data-validators"));
     dispatch({
       type: "CHANGE",
       val: event.target.value,
       validators: event.target.dataset.validators,
     });
-   // console.log(inputState.isValid);
+    // console.log(inputState.isValid);
   };
 
   const touchHandler = (event) => {
     dispatch({
       type: "TOUCH",
     });
-  
-  
+
     dispatchfrm({
       type: "INPUT_CHANGE",
       value: event.target.value,
@@ -257,8 +249,6 @@ const Fakultetet3 = () => {
       inputId: event.target.name,
     });
   };
-
-
 
   return (
     <Wrapper>
@@ -290,7 +280,7 @@ const Fakultetet3 = () => {
                   errorText="Please enter a valid title."
                   changeHandler={changeHandler}
                   touchHandler={touchHandler}
-                  validators={[VALIDATOR_REQUIRE]} 
+                  validators={[VALIDATOR_REQUIRE]}
                 />
 
                 <button

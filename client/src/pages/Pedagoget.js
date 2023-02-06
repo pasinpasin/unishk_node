@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 import ShtoForm from "../components/ShtoForm";
 import ModifikoForm from "../components/ModifikoForm";
 import axios from "axios";
-import Tabela from "../components/Tabela";
+import Tabela from "../components/Tabela2";
 import { GrEdit } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
 import { useParams } from "react-router-dom";
@@ -37,9 +37,9 @@ const Pedagoget = (props) => {
   console.log(idf);
 
   const columnsData = [
-    { field: "emri", header: "emri" },
-    { field: "mbiemri", header: "mbiemri" },
-    { field: "veprimet", header: "Veprimet" },
+    { field: "emri", header: "Emri" },
+    { field: "mbiemri", header: "Mbiemri" },
+    { field: "titulli", header: "Titulli" },
   ];
   const [columns, setColumns] = useState(columnsData);
   const [editing, setEditing] = useState(false);
