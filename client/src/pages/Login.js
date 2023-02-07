@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Alert from "../components/Alert.js";
 import FormRow from "../components/FormRow";
 import Logo from "../components/Logo";
+import { Navigate } from 'react-router-dom';
 
 const initialState = {
   email: "",
@@ -39,17 +40,18 @@ const Login = () => {
     loginUser(currentUser);
   };
 
-  useEffect(() => {
+ /*  useEffect(() => {
     if (user) {
-      /*  setTimeout(() => {
+        setTimeout(() => {
         navigate("/");
-      }, 2000); */
+      }, 2000); 
       navigate("/");
     }
-  }, [user, navigate]);
+  }, [user, navigate]); */
 
   return (
-    user ?? (
+    <>
+    {user && <Navigate to='/' />}
       <Wrapper className="full-page">
         <form className="form" onSubmit={onSubmit}>
           {<Logo />}
@@ -76,8 +78,8 @@ const Login = () => {
           <p>{values.isMember ? "Not a member yet?" : "Already a member?"}</p>
         </form>
       </Wrapper>
-    )
-  );
+    
+      </>);
 };
 
 export default Login;

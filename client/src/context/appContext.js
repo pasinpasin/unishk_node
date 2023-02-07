@@ -209,6 +209,7 @@ const AppProvider = ({ children }) => {
     try {
       //const { data } = await authFetch("/auth/getCurrentUser");
       const { data } = await authFetch("/auth/getCurrentUser");
+      console.log(data);
 
       const { user } = data.data;
       console.log({ user });
