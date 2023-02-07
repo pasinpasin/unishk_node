@@ -92,17 +92,17 @@ const AppProvider = ({ children }) => {
   };
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  const loginUser = async (currentUser) => {
+  const loginUser = useCallback(async (currentUser) => {
     dispatch({ type: LOGIN_USER_BEGIN });
     await delay(2000);
     try {
       const { data } = await axios.post("/api/v1/users/signin", currentUser);
 
-      const { user, token } = data.data;
+      const { user } = data.data;
 
       dispatch({
         type: LOGIN_USER_SUCCESS,
-        payload: { user, token },
+        payload: { user },
       });
       //addUserToLocalStorage({user,token,location})
     } catch (error) {
@@ -121,7 +121,7 @@ const AppProvider = ({ children }) => {
     }
 
     clearAlert();
-  };
+  }, []);
 
   const sendRequest = useCallback(async (url, method, body = {}, tipi) => {
     // setIsLoading(true);

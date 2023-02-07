@@ -16,7 +16,7 @@ const Login = () => {
   const [values, setValues] = useState(initialState);
   const navigate = useNavigate();
 
-  const { user, token, isLoading, showAlert, displayAlert, loginUser } =
+  const { user, isLoading, showAlert, displayAlert, loginUser } =
     useAppContext();
 
   const toggleMember = () => {
@@ -35,50 +35,48 @@ const Login = () => {
       return;
     }
     const currentUser = { email, password };
-    if (isMember) {
-      console.log("ketu");
-      loginUser(currentUser);
-    } else {
-      console.log("duhet te logoheni");
-    }
-    console.log(e);
+
+    loginUser(currentUser);
   };
 
   useEffect(() => {
     if (user) {
-      setTimeout(() => {
+      /*  setTimeout(() => {
         navigate("/");
-      }, 2000);
+      }, 2000); */
+      navigate("/");
     }
   }, [user, navigate]);
 
   return (
-    <Wrapper className="full-page">
-      <form className="form" onSubmit={onSubmit}>
-        {<Logo />}
-        <h3>{"Login"}</h3>
-        {showAlert && <Alert />}
+    user ?? (
+      <Wrapper className="full-page">
+        <form className="form" onSubmit={onSubmit}>
+          {<Logo />}
+          <h3>{"Login"}</h3>
+          {showAlert && <Alert />}
 
-        {/* email input */}
-        <FormRow
-          type="email"
-          name="email"
-          value={values.email}
-          handleChange={handleChange}
-        />
-        {/* password input */}
-        <FormRow
-          type="password"
-          name="password"
-          value={values.password}
-          handleChange={handleChange}
-        />
-        <button type="submit" className="btn btn-block " disabled={isLoading}>
-          {isLoading ? "loading..." : "Login"}
-        </button>
-        <p>{values.isMember ? "Not a member yet?" : "Already a member?"}</p>
-      </form>
-    </Wrapper>
+          {/* email input */}
+          <FormRow
+            type="email"
+            name="email"
+            value={values.email}
+            handleChange={handleChange}
+          />
+          {/* password input */}
+          <FormRow
+            type="password"
+            name="password"
+            value={values.password}
+            handleChange={handleChange}
+          />
+          <button type="submit" className="btn btn-block " disabled={isLoading}>
+            {isLoading ? "loading..." : "Login"}
+          </button>
+          <p>{values.isMember ? "Not a member yet?" : "Already a member?"}</p>
+        </form>
+      </Wrapper>
+    )
   );
 };
 

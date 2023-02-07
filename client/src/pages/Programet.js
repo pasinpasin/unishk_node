@@ -70,7 +70,7 @@ const Programet = (props) => {
         {},
         "GET_PROGRAME"
       );
-      setProgramet2(data.programet);
+      if (data.programet.length > 0) setProgramet2(data.programet);
       setLoading(false);
       //console.log(data);
     } catch (error) {

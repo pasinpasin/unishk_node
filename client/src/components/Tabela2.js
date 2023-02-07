@@ -1,10 +1,15 @@
 import Wrapper from "../assets/wrappers/Tabela";
-import React from "react";
+import React, { useCallback } from "react";
 import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
+
+function GetPropertyValue(obj1, dataToRetrieve) {
+  return dataToRetrieve.split(".").reduce(function (o, k) {
+    return o && o[k]; // get inner property if `o` is defined else get `o` and return
+  }, obj1); // set initial value as object
+}
 
 const Tabela2 = (props) => {
-  // console.log(props.data);
-  let i = 0;
   return (
     <Wrapper>
       <table>
@@ -23,9 +28,9 @@ const Tabela2 = (props) => {
         <tbody>
           {props.data2.length > 0 ? (
             props.data2.map((data) => (
-              <tr key={data._id}>
+              <tr key={data._id} id={data._id}>
                 {props.kol.map((data3) => (
-                  <td data-label={data3.header}>
+                  <td id={data3.header} data-label={data3.header}>
                     <NavLink
                       to={props.url.replace("id", data._id)}
                       onClick={props.functioncall}
@@ -34,7 +39,7 @@ const Tabela2 = (props) => {
                       }
                       end
                     >
-                      {data[data3.field]}
+                      {GetPropertyValue(data, data3.field)}
                     </NavLink>
                   </td>
                 ))}

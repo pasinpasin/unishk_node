@@ -15,7 +15,7 @@ import { MdDelete } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import Dashboard from "./Dashboard";
 
-const Pedagoget = (props) => {
+const Ngarkesat = (props) => {
   //const [values, setValues] = useState(initialState);
   //const navigate = useNavigate();
 
@@ -220,4 +220,4 @@ const Pedagoget = (props) => {
   );
 };
 
-export default Pedagoget;
+export default Ngarkesat;

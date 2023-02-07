@@ -26,7 +26,7 @@ export const validate = (value, validators) => {
 
   let isValid = true;
   for (const validator of validators) {
-    console.log("kot");
+    console.log(validator);
     if (validator.type === VALIDATOR_TYPE_REQUIRE) {
       isValid = isValid && value.trim().length > 0;
     }
