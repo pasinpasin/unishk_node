@@ -9,14 +9,31 @@ import DepartmentContent from "./pages/DepartmentContent";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import ShtoFakultet from "./pages/ShtoFakultet";
 import PedagogetContent from "./pages/PedagogetContent";
+import WelcomePage from "./pages/WelcomePage";
+import Users from "./pages/Users";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Dashboard />}>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        >
           <Route
             index
+            element={
+              <ProtectedRoute>
+                <WelcomePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="fakultetet"
             element={
               <ProtectedRoute>
                 <Fakultetet />
@@ -26,14 +43,45 @@ function App() {
 
           <Route
             path="departamenti/:id/programi"
-            element={<DepartmentContent />}
+            element={
+              <ProtectedRoute>
+                <DepartmentContent />
+              </ProtectedRoute>
+            }
           />
-          <Route path="pedagoget" element={<Pedagoget />} />
+          <Route
+            path="pedagoget"
+            element={
+              <ProtectedRoute>
+                <Pedagoget />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="fakulteti/:id/departamenti"
-            element={<Departamentet />}
+            element={
+              <ProtectedRoute>
+                <Departamentet />
+              </ProtectedRoute>
+            }
           />
-          <Route path="users/:id/" element={<PedagogetContent />} />
+          <Route
+            path="users/:id/"
+            element={
+              <ProtectedRoute>
+                <PedagogetContent />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="users"
+            element={
+              <ProtectedRoute>
+                <Users />
+              </ProtectedRoute>
+            }
+          />
         </Route>
 
         <Route path="/login" element={<Login />} />

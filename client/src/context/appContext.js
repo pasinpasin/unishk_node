@@ -42,18 +42,19 @@ const initialState = {
   alertType: "",
   //user: user ? JSON.parse(user) : null,
   user: null,
-  token: null,
-  userLocation: "",
+  userfakultet: null,
+  userdepartament: null,
+  userrole: null,
+
   showSidebar: true,
   fakultetet: [],
-  isValidFormFinal: false,
-  inputs: { inputID: { vlera: "", isValid: false } },
 };
 
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  console.log("app context");
 
   //axios.defaults.headers.common["Authorization"] = `Bearer ${state.token}`;
   const authFetch = axios.create({
@@ -99,10 +100,13 @@ const AppProvider = ({ children }) => {
       const { data } = await axios.post("/api/v1/users/signin", currentUser);
 
       const { user } = data.data;
+      const userfakultet = user.fakulteti;
+      const userdepartament = user.departamenti;
+      const userrole = user.role;
 
       dispatch({
         type: LOGIN_USER_SUCCESS,
-        payload: { user },
+        payload: { user, userfakultet, userdepartament, userrole },
       });
       //addUserToLocalStorage({user,token,location})
     } catch (error) {
@@ -212,11 +216,13 @@ const AppProvider = ({ children }) => {
       console.log(data);
 
       const { user } = data.data;
-      console.log({ user });
+      const userfakultet = user.fakulteti;
+      const userdepartament = user.departamenti;
+      const userrole = user.role;
 
       dispatch({
         type: GET_CURRENT_USER_SUCCESS,
-        payload: { user },
+        payload: { user, userfakultet, userdepartament, userrole },
       });
     } catch (error) {
       if (error.response && error.response.status === 401) {

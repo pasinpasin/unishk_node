@@ -10,33 +10,25 @@ export const useHttpClient = () => {
     validateStatus: false,
   });
 
-  const activeHttpRequests = useRef([]);
+  //const activeHttpRequests = useRef([]);
 
   const sendRequest = useCallback(async (url, method = "GET", body = {}) => {
     setIsLoading(true);
-    const httpAbortCtrl = new AbortController();
-    activeHttpRequests.current.push(httpAbortCtrl);
-
+    //const httpAbortCtrl = new AbortController();
+    //activeHttpRequests.current.push(httpAbortCtrl);
     try {
-      const response = await authFetch(url, {
-        method,
-        body,
-
-        signal: httpAbortCtrl.signal,
+      const { data } = await authFetch({
+        method: method,
+        url: url,
+        data: body,
       });
 
-      const responseData = await response.json();
-
-      activeHttpRequests.current = activeHttpRequests.current.filter(
-        (reqCtrl) => reqCtrl !== httpAbortCtrl
-      );
-
-      if (!response.ok) {
-        throw new Error(responseData.message);
+      if (data.status !== "success") {
+        throw new Error(data.message);
       }
 
       setIsLoading(false);
-      return responseData;
+      return data;
     } catch (err) {
       setError(err.message);
       setIsLoading(false);
@@ -48,12 +40,7 @@ export const useHttpClient = () => {
     setError(null);
   };
 
-  useEffect(() => {
-    return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      activeHttpRequests.current.forEach((abortCtrl) => abortCtrl.abort());
-    };
-  }, []);
-
   return { isLoading, error, sendRequest, clearError };
 };
+
+export default useHttpClient;

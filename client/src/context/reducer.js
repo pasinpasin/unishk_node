@@ -76,7 +76,9 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       user: action.payload.user,
-      token: action.payload.token,
+      userfakultet: action.payload.userfakultet,
+      userdepartament: action.payload.userdepartament,
+      userrole: action.payload.userrole,
 
       showAlert: true,
       alertType: "success",
@@ -115,6 +117,9 @@ const reducer = (state, action) => {
       ...state,
       userLoading: false,
       user: action.payload.user,
+      userfakultet: action.payload.userfakultet,
+      userdepartament: action.payload.userdepartament,
+      userrole: action.payload.userrole,
     };
   }
 
@@ -123,6 +128,9 @@ const reducer = (state, action) => {
       ...state,
       userLoading: false,
       user: null,
+      userfakultet: null,
+      userdepartament: null,
+      userrole: null,
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,

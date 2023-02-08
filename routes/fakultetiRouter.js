@@ -5,7 +5,9 @@ const ngarkesaRouter = require("./ngarkesat/ngarkesaRouter");
 const evidencaRouter = require("./evidencat/evidencaRouter");
 const departamentiRouter = require("./departamentiRouter");
 const authController = require("../controllers/users/authController");
-const checkMiddleware=require("../middleware/checkAuth")
+const checkMiddleware = require("../middleware/checkAuth");
+
+router.use(authController.protect);
 
 router.use("/:fakulteti/:vitiakademik/ngarkesa", ngarkesaRouter);
 router.use(
@@ -21,8 +23,8 @@ router.use("/:id/departamenti", departamentiRouter);
 router
   .route("/")
   .get(
-   ////checkMiddleware.isAuthenticated,
-    authController.protect,
+    ////checkMiddleware.isAuthenticated,
+    // authController.protect,
     //authController.restrictTo("admin", "pedagog"),
     fakultetiController.getAllFakulteti
   )

@@ -4,6 +4,9 @@ const departamentiController = require("../controllers/departamentiController");
 const ngarkesaRouter = require("./ngarkesat/ngarkesaRouter");
 const programiRouter = require("./programiRouter");
 const userRouter = require("./users/userRouter");
+const authController = require("../controllers/users/authController");
+
+router.use(authController.protect);
 
 router.use("/:dep/:vitiakademik/ngarkesa", ngarkesaRouter);
 router.use("/:dep/:vitiakademik/ngarkesa/pdf", ngarkesaRouter);
