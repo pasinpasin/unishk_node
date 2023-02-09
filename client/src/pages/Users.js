@@ -3,19 +3,20 @@ import useHttpClient from "../hooks/useHttpClient";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Loading from "../components/Loading";
-import Alert from "../components/Alert";
+import Alert from "../components/Alert2";
 import Wrapper from "../assets/wrappers/Tabela";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import ShtoForm from "../components/ShtoForm";
-import ModifikoForm from "../components/ModifikoForm";
-import axios from "axios";
-import Tabela from "../components/Tabela2";
-import { GrEdit } from "react-icons/gr";
+import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { useParams } from "react-router-dom";
-import Dashboard from "./Dashboard";
 
+import Tabela from "../components/Tabela2";
+
+function GetPropertyValue(obj1, dataToRetrieve) {
+  return dataToRetrieve.split(".").reduce(function (o, k) {
+    return o && o[k]; // get inner property if `o` is defined else get `o` and return
+  }, obj1); // set initial value as object
+}
 const Users = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -51,24 +52,21 @@ const Users = () => {
   };
 
   const fshijUser = async (id) => {
-    try {
-      const data = await sendRequest(
-        `/users/${id}`,
-        "DELETE",
-        {},
-        "FSHIJ_PEDAGOG"
-      );
-    } catch (error) {
-      console.log(error);
+    if (window.confirm("Jeni te sigurte?")) {
+      try {
+        const data = await sendRequest(`/users/${id}`, "DELETE", {});
+      } catch (error) {
+        console.log(error);
+      }
+      getData();
     }
-    getData();
   };
 
   const getData = async () => {
     try {
-      const data = await sendRequest(`users`, "GET", {}, "GET_USERS");
-      console.log(data.data.users);
-      setUsers2(data.data.users);
+      const { data } = await sendRequest(`users`, "GET", {});
+      console.log(data.users);
+      setUsers2(data.users);
     } catch (error) {
       console.log(error);
     }
@@ -86,16 +84,52 @@ const Users = () => {
         <Loading center />
       ) : (
         <div>
+          {error.alertType !== "" ?? (
+            <Alert alertType={error.alertType} alertText={error.alertText} />
+          )}
           {users2 && users2.length > 0 ? (
-            <Tabela
-              kol={columnsData}
-              data2={users2}
-              fshij={fshijUser}
-              modifiko={ModifikoData}
-              url={url}
-            />
+            <>
+              <button className="btn  ">
+                Shto user
+                <Link to={`/users/{data._id}/shtouser`} />
+              </button>
+              <table>
+                <thead>
+                  <tr key="kolonat">
+                    {columnsData.map((column) => (
+                      <th key={column.field}> {column.header}</th>
+                    ))}
+
+                    <th key="veprimet">Veprimet</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users2.map((data) => (
+                    <tr key={data._id}>
+                      {columnsData.map((data3) => (
+                        <td key={data3.header} data-label={data3.header}>
+                          {GetPropertyValue(data, data3.field)}
+                        </td>
+                      ))}
+
+                      {
+                        <td key="veprimet" data-label="Veprimet">
+                          <Link to={`/users/${data._id}/edit`}>
+                            <FaEdit size={25} />
+                          </Link>
+                          <MdDelete
+                            size={25}
+                            onClick={() => fshijUser(data._id)}
+                          />
+                        </td>
+                      }
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
           ) : (
-            "S ka usere"
+            "S ka user"
           )}
         </div>
       )}

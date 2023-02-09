@@ -141,7 +141,7 @@ const reducer = (state, action) => {
     return { ...state, isLoading: true, showAlert: false };
   }
   if (action.type === GET_FAKULTETE_SUCCESS) {
-    console.log(action.payload.data.data.fakultetet);
+    //console.log(action.payload.data.data.fakultetet);
     return {
       ...state,
       isLoading: false,

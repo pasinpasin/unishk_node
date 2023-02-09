@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const useHttpClient = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState({ alertType: "", alertText: "" });
 
   const authFetch = axios.create({
     baseURL: "/api/v1",
@@ -24,20 +24,25 @@ export const useHttpClient = () => {
       });
 
       if (data.status !== "success") {
+        setError({ alertType: "danger", alertText: "Ka ndodhur nje gabim" });
+        clearError();
         throw new Error(data.message);
       }
 
       setIsLoading(false);
       return data;
     } catch (err) {
-      setError(err.message);
+      setError({ alertType: "danger", alertText: err.message });
       setIsLoading(false);
+      clearError();
       throw err;
     }
   }, []);
 
   const clearError = () => {
-    setError(null);
+    setTimeout(() => {
+      setError({ alertType: "", alertText: "" });
+    }, 30000);
   };
 
   return { isLoading, error, sendRequest, clearError };

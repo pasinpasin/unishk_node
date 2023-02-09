@@ -11,6 +11,7 @@ import ShtoFakultet from "./pages/ShtoFakultet";
 import PedagogetContent from "./pages/PedagogetContent";
 import WelcomePage from "./pages/WelcomePage";
 import Users from "./pages/Users";
+import ModifikoUser from "./pages/ModifikoUser";
 
 function App() {
   return (
@@ -70,6 +71,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <PedagogetContent />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="users/:id/edit"
+            element={
+              <ProtectedRoute>
+                <ModifikoUser />
               </ProtectedRoute>
             }
           />
