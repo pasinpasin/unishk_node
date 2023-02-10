@@ -6,7 +6,7 @@ const FormrowSelect = (props) => {
       </label>
       <select
         name={props.name}
-        value={props.value}
+        value={props.value.emertimi}
         onChange={props.handleChange}
         className="form-select"
       >
