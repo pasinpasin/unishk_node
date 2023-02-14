@@ -74,7 +74,7 @@ const Users = () => {
 
   useEffect(() => {
     getData();
-  }, [sendRequest]);
+  }, []);
 
   let url = "/";
 
@@ -89,10 +89,11 @@ const Users = () => {
           )}
           {users2 && users2.length > 0 ? (
             <>
+            <Link to={`/users/shtouser`} >
               <button className="btn  ">
                 Shto user
-                <Link to={`/users/{data._id}/shtouser`} />
-              </button>
+                
+              </button></Link>
               <table>
                 <thead>
                   <tr key="kolonat">

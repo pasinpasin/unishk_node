@@ -1,4 +1,4 @@
-import ModifikoForm from "../components/ModifikoForm";
+
 import { useAppContext } from "../context/appContext";
 import FormRow from "../components/FormRow";
 import { useState, useEffect } from "react";
@@ -9,31 +9,33 @@ import FormrowSelect from "../components/FormrowSelect";
 import Loading from "../components/Loading";
 import FormCheckBox from "../components/FormCheckBox";
 import Alert from "../components/Alert2";
+import { useNavigate } from 'react-router-dom';
 
-const ModifikoUser = () => {
+const ShtoUser = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  const { id } = useParams();
-
+  
+  const navigate = useNavigate();
   const [emri, setEmri] = useState("");
   const [mbiemri, setMbimri] = useState("");
   const [atesia, setAtesia] = useState("");
   const [titulli, setTitulli] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
+  
   const [password, setPassword] = useState("");
-  const [confirmpassword, setConfirmpassword] = useState("");
-  const [fakulteti, setFakulteti] = useState();
-  const [departamenti, setDepartamenti] = useState();
-  const [user, setUser] = useState(null);
+  const [passwordconfirm, SetpasswordConfirm] = useState("");
+  const [fakulteti, setFakulteti] = useState(""); //permban me vone id e fakultetit
+  const [departamenti, setDepartamenti] = useState("");
+
   const [fakultetet, setFakultetet] = useState([]);
   const [departamentet, setDepartamentet] = useState([]);
   const [userloading, setUserloading] = useState(true);
-  const [checked, setChecked] = useState();
+  const [checked, setChecked] = useState([]);
+  const titujt=["MSc", "Dr.", "Prof.Dr", "Doc", "Prof.Asoc. Dr"];
 
-  const getData = async () => {
+  const postData = async (newuser) => {
     try {
-      const { data } = await sendRequest(`users/${id}`, "GET", {});
-      setUser(data.user);
+      const { data } = await sendRequest(`users/`, "POST", newuser);
+      
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +44,7 @@ const ModifikoUser = () => {
   const getFakultetet = async () => {
     try {
       const { data } = await sendRequest(`/fakulteti`, "GET", {});
-console.log(data);
+
       setFakultetet(...fakultetet, data.fakultetet);
     } catch (error) {
       console.log(error);
@@ -61,37 +63,27 @@ console.log(data);
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    return;
+    const newuser={email,password,passwordconfirm,emri,mbiemri,titulli,atesia,fakulteti,departamenti}
+    postData(newuser);
+    navigate('/users');
+  
   };
 
   useEffect(() => {
-    if (!user || user._id !== id) {
-      getData();
+    if (userloading) {
+      
       getFakultetet();
       getDepartamentet();
-    } else {
-      setEmri(user.emri);
-      setMbimri(user.mbiemri);
-      setEmail(user.email);
-      setAtesia(user.atesia)
-      setPassword(user.password);
-      setConfirmpassword(user.password);
-      setTitulli(user.titulli);
-      setFakulteti( {emertimi:user.fakulteti,id:user.fakulteti._id});
-      setDepartamenti( user.departamenti);
-
-     
-      setChecked([user.role]);
-
       setUserloading(false);
-    }
-  }, [user]);
+    } 
+  }, []);
 
   const handleCheck = (event) => {
+    
     var updatedList = [...checked];
+    console.log(updatedList);
     if (event.target.checked) {
-      console.log(checked.includes(user.role));
+     // console.log(checked.includes(user.role));
       updatedList = [...checked, event.target.value];
     } else {
       updatedList.splice(checked.indexOf(event.target.value), 1);
@@ -103,7 +95,7 @@ console.log(data);
 
   const setFilter=(departamentet)=>{
    return  departamentet.filter(
-      (departament) => departament.fakulteti._id === fakulteti.id
+      (departament) => departament.fakulteti._id === fakulteti
     )
     
   }
@@ -116,10 +108,13 @@ console.log(data);
         <Loading center />
       ) : (
         <>
-          {error.alertType !== "" ?? (
+          { error.alertType !== "" ?? (
             <Alert alertType={error.alertType} alertText={error.alertText} />
           )}
+           <Alert alertType={error.alertType} alertText={error.alertText} />
           <form className="form" onSubmit={onSubmit}>
+         { isLoading && 
+        <Loading center />}
             <FormRow
               type="email"
               name="email"
@@ -135,9 +130,9 @@ console.log(data);
             />
             <FormRow
               type="password"
-              name="confirmpassword"
-              value={confirmpassword}
-              handleChange={(e) => setConfirmpassword(e.target.value)}
+              name="passwordconfirm"
+              value={passwordconfirm}
+              handleChange={(e) => SetpasswordConfirm(e.target.value)}
             />
             <FormRow
               type="text"
@@ -157,27 +152,31 @@ console.log(data);
               value={atesia}
               handleChange={(e) => setAtesia(e.target.value)}
             />
-            <FormRow
-              type="text"
+            <FormrowSelect
+             
               name="titulli"
               value={titulli}
+              lista={titujt}
               handleChange={(e) => setTitulli(e.target.value)}
             />
 
             <FormrowSelect
-              name="fakulteti"
-              value={user.fakulteti || fakulteti.emertimi}
-              handleChange={(e) => {
-                setFakulteti({emertimi:e.target.value, id:e.target.children[e.target.selectedIndex].getAttribute('data-celesi')});
-                
-                console.log(e.target.children[e.target.selectedIndex].getAttribute('data-celesi'))
-              }}
-              lista={fakultetet}
-            />
+
+            name="fakulteti"
+            value={fakulteti}
+
+            handleChange={(e) => setFakulteti(e.target.value)}
+            className="form-select"
+
+            lista={fakultetet}
+            ></FormrowSelect>
+
+
+
             <FormrowSelect
               name="departamenti"
-              value={departamenti.emertimi}
-              handleChange={(e) => {setDepartamenti(e.target.value) ; setFilter()}}
+              value={departamenti}
+              handleChange={(e) => {setDepartamenti(e.target.value) }}
               /* lista={departamentet} */
               lista={setFilter(departamentet)} 
             />
@@ -197,4 +196,4 @@ console.log(data);
   );
 };
 
-export default ModifikoUser;
+export default ShtoUser;

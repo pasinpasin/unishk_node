@@ -22,7 +22,7 @@ const FormCheckBox = (props) => {
               key={index}
               id={index}
               onChange={props.handleChange}
-              checked={props.arr.includes(itemValue)}
+              checked={ props.arr.includes(itemValue)}
             />
             {itemValue}
           </div>

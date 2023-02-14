@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import axios from "axios";
 
-export const useHttpClient = () => {
+const useHttpClient = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({ alertType: "", alertText: "" });
 
@@ -12,19 +12,22 @@ export const useHttpClient = () => {
 
   //const activeHttpRequests = useRef([]);
 
-  const sendRequest = useCallback(async (url, method = "GET", body = {}) => {
+  const sendRequest = useCallback(async (url, method, body = {}) => {
     setIsLoading(true);
     //const httpAbortCtrl = new AbortController();
     //activeHttpRequests.current.push(httpAbortCtrl);
     try {
+      console.log("ketu");
       const { data } = await authFetch({
         method: method,
         url: url,
         data: body,
+
       });
+      
 
       if (data.status !== "success") {
-        setError({ alertType: "danger", alertText: "Ka ndodhur nje gabim" });
+        setError({ alertType: "danger", alertText: data.message.message });
         clearError();
         throw new Error(data.message);
       }
@@ -32,7 +35,7 @@ export const useHttpClient = () => {
       setIsLoading(false);
       return data;
     } catch (err) {
-      setError({ alertType: "danger", alertText: err.message });
+      //setError({ alertType: "danger", alertText: data.message.message });
       setIsLoading(false);
       clearError();
       throw err;

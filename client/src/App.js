@@ -12,6 +12,7 @@ import PedagogetContent from "./pages/PedagogetContent";
 import WelcomePage from "./pages/WelcomePage";
 import Users from "./pages/Users";
 import ModifikoUser from "./pages/ModifikoUser";
+import ShtoUser from "./pages/ShtoUser";
 
 function App() {
   return (
@@ -80,6 +81,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <ModifikoUser />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="users/shtouser"
+            element={
+              <ProtectedRoute>
+                <ShtoUser/>
               </ProtectedRoute>
             }
           />

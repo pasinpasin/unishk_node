@@ -48,9 +48,8 @@ const userSchema = new mongoose.Schema(
     },
     titulli: {
       type: String,
-      required: [true, "Duhet titulli"],
-
-      trim: true,
+      enum: ["MSc", "Dr.", "Prof.Dr", "Doc", "Prof.Asoc. Dr"],
+      default: "MSc",
     },
     fakulteti: {
       type: mongoose.Schema.ObjectId,

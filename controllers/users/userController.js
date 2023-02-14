@@ -39,7 +39,7 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id).populate("fakulteti departamenti");
     // Tour.findOne({ _id: req.params.id })
 
     res.status(200).json({
