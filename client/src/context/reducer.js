@@ -49,6 +49,8 @@ import {
   GET_PEDAGOG_SUCCESS,
   GET_PEDAGOG_ERROR,
   VALIDO_INPUT,
+  TOKEN_REFRESH,
+  GET_CURRENT_USER_AUTH,
 } from "./Actions";
 
 import { initialState } from "./appContext";
@@ -76,13 +78,21 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       user: action.payload.user,
-      userfakultet: action.payload.userfakultet,
-      userdepartament: action.payload.userdepartament,
-      userrole: action.payload.userrole,
+      authTokens: action.payload.authTokens,
 
       showAlert: true,
       alertType: "success",
       alertText: "User successfully logged in! Redirecting...",
+    };
+  }
+
+  if (action.type === TOKEN_REFRESH) {
+    console.log(action.payload.user);
+    return {
+      ...state,
+      isLoading: false,
+      user: action.payload.user,
+      authTokens: action.payload.authTokens,
     };
   }
   if (action.type === LOGIN_USER_ERROR) {
@@ -110,16 +120,26 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === GET_CURRENT_USER_BEGIN) {
-    return { ...state, userLoading: true, showAlert: false };
+    return { ...state, userLoading: true };
   }
   if (action.type === GET_CURRENT_USER_SUCCESS) {
     return {
       ...state,
       userLoading: false,
       user: action.payload.user,
+      authTokens: action.payload.authTokens,
       userfakultet: action.payload.userfakultet,
       userdepartament: action.payload.userdepartament,
       userrole: action.payload.userrole,
+    };
+  }
+
+  if (action.type === TOKEN_REFRESH) {
+    return {
+      ...state,
+      userLoading: false,
+      user: action.payload.user,
+      authTokens: action.payload.authTokens,
     };
   }
 
@@ -128,12 +148,25 @@ const reducer = (state, action) => {
       ...state,
       userLoading: false,
       user: null,
+      authTokens: null,
       userfakultet: null,
       userdepartament: null,
       userrole: null,
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
+    };
+  }
+  if (action.type === GET_CURRENT_USER_AUTH) {
+    return {
+      ...state,
+      userLoading: false,
+      user: null,
+      authTokens: null,
+      userfakultet: null,
+      userdepartament: null,
+      userrole: null,
+      showAlert: false,
     };
   }
 

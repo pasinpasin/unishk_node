@@ -8,14 +8,19 @@ import Wrapper from "../assets/wrappers/Tabela";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { MdAssignmentReturn, MdDelete } from "react-icons/md";
 
 import Tabela from "../components/Tabela2";
 
 function GetPropertyValue(obj1, dataToRetrieve) {
   return dataToRetrieve.split(".").reduce(function (o, k) {
+    console.log(o[k]);
     return o && o[k]; // get inner property if `o` is defined else get `o` and return
   }, obj1); // set initial value as object
+}
+
+function Myroles(roles) {
+  roles.map((roli) => roli);
 }
 const Users = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -89,11 +94,9 @@ const Users = () => {
           )}
           {users2 && users2.length > 0 ? (
             <>
-            <Link to={`/users/shtouser`} >
-              <button className="btn  ">
-                Shto user
-                
-              </button></Link>
+              <Link to={`/users/shtouser`}>
+                <button className="btn  ">Shto user</button>
+              </Link>
               <table>
                 <thead>
                   <tr key="kolonat">
@@ -109,7 +112,9 @@ const Users = () => {
                     <tr key={data._id}>
                       {columnsData.map((data3) => (
                         <td key={data3.header} data-label={data3.header}>
-                          {GetPropertyValue(data, data3.field)}
+                          {data3.header !== "Roli"
+                            ? GetPropertyValue(data, data3.field)
+                            : Myroles(data.role)}
                         </td>
                       ))}
 

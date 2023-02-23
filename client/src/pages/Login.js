@@ -13,6 +13,7 @@ const initialState = {
   email: "",
   password: "",
   isMember: true,
+  username: "",
 };
 const Login = () => {
   const [values, setValues] = useState(initialState);
@@ -30,13 +31,13 @@ const Login = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    const { email, password, isMember } = values;
-    if (!email || !password) {
+    const { username, password } = values;
+    if (!username || !password) {
       //console.log("je ketu");
       displayAlert();
       return;
     }
-    const currentUser = { email, password };
+    const currentUser = { username, password };
 
     loginUser(currentUser);
   };
@@ -53,9 +54,9 @@ const Login = () => {
 
           {/* email input */}
           <FormRow
-            type="email"
-            name="email"
-            value={values.email}
+            type="text"
+            name="username"
+            value={values.username}
             handleChange={handleChange}
           />
           {/* password input */}

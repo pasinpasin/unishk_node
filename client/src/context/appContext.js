@@ -8,7 +8,10 @@ import React, {
 } from "react";
 import reducer from "./reducer";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 import { validate } from "../utils/validator";
+import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 
 import {
   DISPLAY_ALERT,
@@ -32,6 +35,8 @@ import {
   GET_PEDAGOG_ERROR,
   VALIDO_INPUT,
   TOUCH_INPUT,
+  GET_CURRENT_USER_AUTH,
+  TOKEN_REFRESH,
 } from "./Actions";
 
 const initialState = {
@@ -41,7 +46,12 @@ const initialState = {
   alertText: "",
   alertType: "",
   //user: user ? JSON.parse(user) : null,
-  user: null,
+  user: localStorage.getItem("authTokens")
+    ? jwt_decode(localStorage.getItem("authTokens"))
+    : null,
+  authTokens: localStorage.getItem("authTokens")
+    ? JSON.parse(localStorage.getItem("authTokens"))
+    : null,
   userfakultet: null,
   userdepartament: null,
   userrole: null,
@@ -55,10 +65,13 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   console.log("app context");
+  const baseURL = "http://127.0.0.1:8000/";
 
   //axios.defaults.headers.common["Authorization"] = `Bearer ${state.token}`;
   const authFetch = axios.create({
-    baseURL: "/api/v1",
+    baseURL,
+    headers: { Authorization: `Bearer ${state.authTokens?.access}` },
+
     //validateStatus: false,
   });
   const activeHttpRequests = useRef([]);
@@ -81,6 +94,32 @@ const AppProvider = ({ children }) => {
     }
   );
 
+  /*  authFetch.interceptors.request.use(async (req) => {
+    let user = jwt_decode(state.authTokens.access);
+    const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
+
+    if (!isExpired) return req;
+
+    const response = await axios.post(`${baseURL}/token/refresh/`, {
+      refresh: state.authTokens.refresh,
+    });
+
+    localStorage.setItem("authTokens", JSON.stringify(response.data));
+    const authTokens = response.data;
+    user = jwt_decode(response.data.access);
+
+    dispatch({
+      type: LOGIN_USER_SUCCESS,
+      payload: { user, authTokens },
+    });
+
+    //setAuthTokens(response.data);
+    //setUser(jwt_decode(response.data.access));
+
+    req.headers.Authorization = `Bearer ${response.data.access}`;
+    return req;
+  }); */
+
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
     clearAlert();
@@ -97,17 +136,34 @@ const AppProvider = ({ children }) => {
     dispatch({ type: LOGIN_USER_BEGIN });
     await delay(2000);
     try {
-      const { data } = await axios.post("/api/v1/users/signin", currentUser);
+      //console.log(currentUser);
+      const response = await axios.post(
+        //"/api/v1/users/signin",
+        "http://127.0.0.1:8000/token/",
 
-      const { user } = data.data;
+        currentUser
+      );
+
+      if (response.status === 200) {
+        const { data } = response;
+        const authTokens = data;
+
+        const user = jwt_decode(data.access);
+        localStorage.setItem("authTokens", JSON.stringify(data));
+        dispatch({
+          type: LOGIN_USER_SUCCESS,
+          payload: { user, authTokens },
+        });
+        // navigate("/");
+      } else {
+        alert("Something went wrong!");
+      }
+
+      /* const { user } = data.data;
       const userfakultet = user.fakulteti;
       const userdepartament = user.departamenti;
-      const userrole = user.role;
+      const userrole = user.role; */
 
-      dispatch({
-        type: LOGIN_USER_SUCCESS,
-        payload: { user, userfakultet, userdepartament, userrole },
-      });
       //addUserToLocalStorage({user,token,location})
     } catch (error) {
       if (error.response) {
@@ -179,8 +235,50 @@ const AppProvider = ({ children }) => {
   };
 
   const logoutUser = async () => {
-    await axios.get("/api/v1/auth/getCurrentUser/logout");
+    //await axios.get("/api/v1/auth/getCurrentUser/logout");
+    state.authTokens = null;
+    state.user = null;
+    localStorage.removeItem("authTokens");
+
     dispatch({ type: LOGOUT_USER });
+  };
+
+  const useAxios = () => {
+    const axiosInstance = axios.create({
+      baseURL,
+      headers: { Authorization: `Bearer ${state.authTokens?.access}` },
+    });
+
+    axiosInstance.interceptors.request.use(async (req) => {
+      const user = jwt_decode(state.authTokens.access);
+      const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
+
+      if (!isExpired) return req;
+
+      const response = await axios.post(`${baseURL}/token/refresh/`, {
+        refresh: state.authTokens.refresh,
+      });
+
+      localStorage.setItem("authTokens", JSON.stringify(response.data));
+
+      //const authTokens = response.data;
+      //const user = jwt_decode(response.data.access);
+      dispatch({
+        type: TOKEN_REFRESH,
+        payload: {
+          user: jwt_decode(response.data.access),
+          authTokens: response.data,
+        },
+      });
+
+      //setAuthTokens(response.data);
+      //setUser(jwt_decode(response.data.access));
+
+      req.headers.Authorization = `Bearer ${response.data.access}`;
+      return req;
+    });
+
+    return axiosInstance;
   };
 
   const ListoFakultetet = async () => {
@@ -210,21 +308,56 @@ const AppProvider = ({ children }) => {
 
   const getCurrentUser = async () => {
     dispatch({ type: GET_CURRENT_USER_BEGIN });
+
+    const authT = JSON.parse(localStorage.getItem("authTokens"));
+
     try {
-      //const { data } = await authFetch("/auth/getCurrentUser");
-      const { data } = await authFetch("/auth/getCurrentUser");
-      console.log(data);
+      if (authT) {
+        const isExpired = dayjs.unix(authT.access.exp).diff(dayjs()) < 1;
+        console.log(isExpired);
+        if (isExpired) {
+          console.log(authT);
+          console.log(authT.access);
+          let response = await axios.post(
+            "http://127.0.0.1:8000/token/refresh/",
 
-      const { user } = data.data;
-      const userfakultet = user.fakulteti;
-      const userdepartament = user.departamenti;
-      const userrole = user.role;
+            {
+              refresh: authT.refresh,
+            }
+          );
 
-      dispatch({
-        type: GET_CURRENT_USER_SUCCESS,
-        payload: { user, userfakultet, userdepartament, userrole },
-      });
+          console.log(response);
+          if (response.status === 200) {
+            const authTokens = response.data;
+
+            const user = jwt_decode(response.data.access);
+            localStorage.setItem("authTokens", JSON.stringify(response.data));
+            dispatch({
+              type: GET_CURRENT_USER_SUCCESS,
+              payload: { user, authTokens },
+            });
+          } else {
+            dispatch({
+              type: GET_CURRENT_USER_AUTH,
+            });
+            logoutUser();
+          }
+        } else {
+          dispatch({
+            type: GET_CURRENT_USER_SUCCESS,
+            payload: {
+              user: jwt_decode(localStorage.getItem("authTokens")),
+              authTokens: JSON.parse(localStorage.getItem("authTokens")),
+            },
+          });
+        }
+      } else {
+        dispatch({
+          type: GET_CURRENT_USER_AUTH,
+        });
+      }
     } catch (error) {
+      console.log(error);
       if (error.response && error.response.status === 401) {
         logoutUser();
       } else {
@@ -238,18 +371,16 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const inputHandler = useCallback((id, value, isValid) => {
-    dispatch({
-      type: VALIDO_INPUT,
-      value: value,
-      isValid: isValid,
-      inputId: id,
-    });
-  }, []);
-
   useEffect(() => {
-    getCurrentUser();
-  }, []);
+    if (state.userLoading) getCurrentUser();
+
+    let fourMinutes = 1000 * 60 * 4;
+
+    let interval = setInterval(() => {
+      getCurrentUser();
+    }, fourMinutes);
+    return () => clearInterval(interval);
+  }, [state.userLoading]);
 
   return (
     <AppContext.Provider
@@ -257,6 +388,7 @@ const AppProvider = ({ children }) => {
         ...state,
         displayAlert,
         loginUser,
+
         toggleSidebar,
         logoutUser,
         ListoFakultetet,

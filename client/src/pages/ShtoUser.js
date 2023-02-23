@@ -1,4 +1,3 @@
-
 import { useAppContext } from "../context/appContext";
 import FormRow from "../components/FormRow";
 import { useState, useEffect } from "react";
@@ -9,18 +8,18 @@ import FormrowSelect from "../components/FormrowSelect";
 import Loading from "../components/Loading";
 import FormCheckBox from "../components/FormCheckBox";
 import Alert from "../components/Alert2";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const ShtoUser = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  
+
   const navigate = useNavigate();
   const [emri, setEmri] = useState("");
   const [mbiemri, setMbimri] = useState("");
   const [atesia, setAtesia] = useState("");
   const [titulli, setTitulli] = useState("");
   const [email, setEmail] = useState("");
-  
+
   const [password, setPassword] = useState("");
   const [passwordconfirm, SetpasswordConfirm] = useState("");
   const [fakulteti, setFakulteti] = useState(""); //permban me vone id e fakultetit
@@ -30,12 +29,11 @@ const ShtoUser = () => {
   const [departamentet, setDepartamentet] = useState([]);
   const [userloading, setUserloading] = useState(true);
   const [checked, setChecked] = useState([]);
-  const titujt=["MSc", "Dr.", "Prof.Dr", "Doc", "Prof.Asoc. Dr"];
+  const titujt = ["MSc", "Dr.", "Prof.Dr", "Doc", "Prof.Asoc. Dr"];
 
   const postData = async (newuser) => {
     try {
       const { data } = await sendRequest(`users/`, "POST", newuser);
-      
     } catch (error) {
       console.log(error);
     }
@@ -63,44 +61,47 @@ const ShtoUser = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const newuser={email,password,passwordconfirm,emri,mbiemri,titulli,atesia,fakulteti,departamenti}
+    const newuser = {
+      email,
+      password,
+      passwordconfirm,
+      emri,
+      mbiemri,
+      titulli,
+      atesia,
+      fakulteti,
+      departamenti,
+      role: checked,
+    };
     postData(newuser);
-    navigate('/users');
-  
   };
 
   useEffect(() => {
     if (userloading) {
-      
       getFakultetet();
       getDepartamentet();
       setUserloading(false);
-    } 
+    }
   }, []);
 
   const handleCheck = (event) => {
-    
     var updatedList = [...checked];
     console.log(updatedList);
     if (event.target.checked) {
-     // console.log(checked.includes(user.role));
+      // console.log(checked.includes(user.role));
       updatedList = [...checked, event.target.value];
     } else {
       updatedList.splice(checked.indexOf(event.target.value), 1);
     }
-   
+
     setChecked(updatedList);
   };
 
-
-  const setFilter=(departamentet)=>{
-   return  departamentet.filter(
+  const setFilter = (departamentet) => {
+    return departamentet.filter(
       (departament) => departament.fakulteti._id === fakulteti
-    )
-    
-  }
-
- 
+    );
+  };
 
   return (
     <>
@@ -108,13 +109,12 @@ const ShtoUser = () => {
         <Loading center />
       ) : (
         <>
-          { error.alertType !== "" ?? (
+          {error.alertType !== "" ?? (
             <Alert alertType={error.alertType} alertText={error.alertText} />
           )}
-           <Alert alertType={error.alertType} alertText={error.alertText} />
+          <Alert alertType={error.alertType} alertText={error.alertText} />
           <form className="form" onSubmit={onSubmit}>
-         { isLoading && 
-        <Loading center />}
+            {isLoading && <Loading center />}
             <FormRow
               type="email"
               name="email"
@@ -153,7 +153,6 @@ const ShtoUser = () => {
               handleChange={(e) => setAtesia(e.target.value)}
             />
             <FormrowSelect
-             
               name="titulli"
               value={titulli}
               lista={titujt}
@@ -161,24 +160,21 @@ const ShtoUser = () => {
             />
 
             <FormrowSelect
-
-            name="fakulteti"
-            value={fakulteti}
-
-            handleChange={(e) => setFakulteti(e.target.value)}
-            className="form-select"
-
-            lista={fakultetet}
+              name="fakulteti"
+              value={fakulteti}
+              handleChange={(e) => setFakulteti(e.target.value)}
+              className="form-select"
+              lista={fakultetet}
             ></FormrowSelect>
-
-
 
             <FormrowSelect
               name="departamenti"
               value={departamenti}
-              handleChange={(e) => {setDepartamenti(e.target.value) }}
+              handleChange={(e) => {
+                setDepartamenti(e.target.value);
+              }}
               /* lista={departamentet} */
-              lista={setFilter(departamentet)} 
+              lista={setFilter(departamentet)}
             />
             <FormCheckBox
               name="roles"
